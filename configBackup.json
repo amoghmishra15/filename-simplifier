@@ -1,0 +1,32 @@
+{
+  "extensions": [
+    {
+      "type": "Video",
+      "value": "'.mp4', '.m4v', '.mkv'"
+    },
+    {
+      "type": "Audio",
+      "value": "'.mp3', '.flac', '.wav'"
+    },
+    {
+      "type": "Document",
+      "value": "'.txt', '.docx', '.pdf'"
+    },
+    {
+      "type": "Custom",
+      "value": "'.custom1', '.custom2', '.custom3'"
+    }
+  ],
+  "defaultBlacklist": "'weekly', '(weekly)', '360p', '480p', '720p', '1080p', '4k', 'v1x', 'v2x', 'complete', '()', '[]'",
+  "customBlacklist": "'customBL1', 'customBL2', 'customBL3'",
+  "flags": [
+    {
+      "selectedExtension": "0",
+      "rmForeign": true,
+      "rmDot": true,
+      "rmUnderscore": true,
+      "enDefaultBlacklist": true,
+      "enCustomBlacklist": false
+    }
+  ]
+}
