@@ -1,6 +1,6 @@
 # Filename Simplifier
 
-A simple tool to mass-simplify (mass-rename) the filename of videos downloaded via torrents.
+A simple tool to mass-simplify (mass-rename) the filename of video, music, document, and much more.
 
 ## Features
 
