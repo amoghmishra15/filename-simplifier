@@ -1,4 +1,4 @@
-# Desalinate
+# Filename Simplifier
 
 A simple tool to mass-simplify (mass-rename) the filename of videos downloaded via torrents.
 
@@ -30,7 +30,7 @@ You can get `python3` using `choco` package manger on Windows, `brew` package ma
 
 First download the script using `git clone https://github.com/Az-21/filename-simplifier.git`, or just download and extract the .zip provided by github.
 
-Open up your terminal (Win/Mac/Linux) where you've cloned/extracted the `desal.py` file and run it using the command given below. The program will ask where the files are located. So, you can have `simplify.py` and the files you want to rename in different folders.
+Open up your terminal (Win/Mac/Linux) where you've cloned/extracted the `simplify.py` file and run it using the command given below. The program will ask where the files are located. So, you can have `simplify.py` and the files you want to rename in different folders.
 
 ```bash
 python simplify.py
@@ -50,7 +50,7 @@ Currently you can customize
 * Flag to enable/disable removal of dot separators `(default = enabled)`
 * Flag to enable/disable removal of underscore separators `(default = enabled)`
 
-## [Roadmap](https://github.com/Az-21/desalinate/projects/1)
+## [Roadmap](https://github.com/Az-21/filename-simplifier/projects/1)
 
 Features planned for the future
 
