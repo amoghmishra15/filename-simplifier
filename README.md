@@ -2,15 +2,6 @@
 
 A simple tool to mass-simplify (mass-rename) the filename of video, music, document, and much more.
 
-## Features
-
-* Simplifies the filename of videos downloaded via torrents. Especially geared towards simplifying the filename of anime torrent files.
-* Removes some common tags like '1080p'. Supports custom blacklist in runtime.
-* Removes non-English characters, dot separators, and underscores. Plus, flags to enable/disable them individually.
-* Removes text inside square brackets.
-* Removes extra whitespace, including the trailing whitespace.
-* Displays preview before finalizing the rename.
-
 **Before**
 ```
 [GroupName] Generic Isekai 
@@ -20,6 +11,16 @@ A simple tool to mass-simplify (mass-rename) the filename of video, music, docum
 ```
 Generic Isekai (2020) - S01E07.mp4
 ```
+
+## Features
+
+* Simplifies the filename of videos downloaded via torrents. Especially geared towards simplifying the filename of anime torrent files.
+* Removes some common tags like '1080p'. Supports custom blacklist in runtime.
+* Removes non-English characters, dot separators, and underscores. Plus, flags to enable/disable them individually.
+* Removes text inside square brackets.
+* Removes extra whitespace, including the trailing whitespace.
+* Displays preview before finalizing the rename.
+
 
 ## Requirements
 
