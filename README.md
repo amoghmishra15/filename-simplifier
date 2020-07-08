@@ -1,40 +1,65 @@
 # Filename Simplifier
 
-A simple tool to mass-simplify (mass-rename) the filename of videos downloaded via torrents.
+<p align="center">
+  <img width="250" height="250" src="https://raw.githubusercontent.com/Az-21/artwork/master/simplify/simplify.png">
+</p>
+<b>
+<p align="center" style = "emphasis">
+  A simple tool to mass-simplify (mass-rename) the filename of videos downloaded via torrents.
+</p>
+</b>
+
 
 ## Features
 
-* Simplifies the filename of videos downloaded via torrents. Especially geared towards simplifying the filename of anime torrent files.
-* Removes some common tags like '1080p'. Supports custom blacklist in runtime.
-* Removes non-English characters, dot separators, and underscores. Plus, flags to enable/disable them individually.
-* Removes text inside square brackets.
-* Removes extra whitespace, including the trailing whitespace.
-* Displays preview before finalizing the rename.
-
 **Before**
 ```
-[GroupName] Generic Isekai 
-ジェネリック異世界 (2020) - S01E07 [1080p][HEVC x265 10bit][Multi-Subs] [CB67A2] (Weekly).mp4
+(火) [GroupName] Generic.Isekai_ジェネリック異世界_(_2020_)_-_S01E07.[1080p].[HEVC x265 10bit][Multi-Subs] [CB67A2].(Weekly).mp4
 ```
 **After**
 ```
 Generic Isekai (2020) - S01E07.mp4
 ```
+* Simplifies the filename of videos downloaded via torrents. Especially geared towards simplifying the filename of anime torrent files.
+* Removes some common metadata tags like '320kbps' '1080p' 'BluRay'. Supports custom blacklist.
+* Removes dot separators, and underscores.
+* Removes text inside square brackets.
+* Removes extra whitespace.
+* Converts to 'Title Case' and removes non-English characters. This can be disabled.
+* Displays preview before finalizing the rename.
+* Prevents two or more files ending with the same rename.
+
 
 ## Requirements
 
-Only [Python](https://www.python.org/) is required to run this script.
-You can get `python3` using `choco` package manger on Windows, `brew` package manager on macOS, and your default package manager on Linux.
+* Windows: no prerequisites.
+* Linux and Mac: [Python 3](https://www.python.org/).
+
 
 ## How to use
 
-First download the script using `git clone https://github.com/Az-21/filename-simplifier.git`, or just download and extract the .zip provided by github.
 
-Open up your terminal (Win/Mac/Linux) where you've cloned/extracted the `simplify.py` file and run it using the command given below. The program will ask where the files are located. So, you can have `simplify.py` and the files you want to rename in different folders.
+### Windows
+
+Download and the latest `simplify.exe` from the [releases].
+
+---
+
+
+### Linux and Mac
+
+
+[Download](https://github.com/Az-21/filename-simplifier/archive/master.zip) and extract the .zip provided by github.
+
+\[Optional\] Or clone this repo using `git clone https://github.com/Az-21/filename-simplifier.git`
+
+Open up your terminal cloned/extracted the `simplify.py` file and run it using the command given below. The program will ask where the files are located. So, you can have `simplify.py` and the files you want to rename in different folders.
 
 ```bash
-python simplify.py
+python3 simplify.py
 ```
+
+---
 
 That's it! Everything is then done using [y/n] prompts
 
@@ -47,16 +72,27 @@ Currently you can customize
 * Blacklisted words
 * Extensions to work on (custom extensions)
 * Flag to enable/disable removal of non-English characters `(default = enabled)`
-* Flag to enable/disable removal of dot separators `(default = enabled)`
-* Flag to enable/disable removal of underscore separators `(default = enabled)`
+* Flag to enable/disable title case `(default = disabled)`
 
-## [Roadmap](https://github.com/Az-21/filename-simplifier/projects/1)
+## [Link to the Roadmap](https://github.com/Az-21/filename-simplifier/projects/1)
 
-Features planned for the future
+Features I'm currently working on. 
+
+Suggestions are always welcomed.
+
 
 # Changelog
 
 ```diff
+v2.1
++ added dot and underscore separators
++ added (almost) all popular audio, video, and subtitle extensions
++ added option to convert to Title Case
++ complete revamp of blacklist removal. now uses regex
++ cleaned up prompt text. minimized user interaction
++ added safety check for 2+ files ending with the same simplified rename
++ very first .exe release
+
 v2.0
 + refactored code
 + support for CLI settings editor
@@ -67,6 +103,7 @@ v2.0
 
 v1.2.5
 + fixed various bugs and vulnerabilities
+- removed some ASCII art
 
 v1.2.1
 + added some ASCII art
