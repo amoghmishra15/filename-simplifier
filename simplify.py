@@ -3,41 +3,47 @@ import re
 import json
 from settings import changeSettings
 
+
 #   Clear terminal
 def clearTerminal():
 	os.system('cls' if os.name == 'nt' else 'clear')
+
 
 #   Load settings
 with open('config.json') as f:
 	config = json.load(f)
 
-#   Print and load settings
+
+#   Terminate the program on invalid input
+def terminate():
+	print('\nTerminating the program. No changes were made.')
+	print('----------------------------------------------')
+	quit()
+
+
+#   Load settings
+extNumber = int(config['flags'][0]['selectedExtension'])
+selectedExtensions = tuple(eval(config['extensions'][extNumber]['value']))
+rmForeign = config['flags'][0]['rmForeign']
+defaultBlacklist = tuple(eval(config['defaultBlacklist']))
+enDefaultBlacklist = config['flags'][0]['enDefaultBlacklist']
+customBlacklist = tuple(eval(config['customBlacklist']))
+enCustomBlacklist = config['flags'][0]['enCustomBlacklist']
+enTitleCase = config['flags'][0]['enTitleCase']
+
+#   Print settings
 clearTerminal()
 print('\nFilename Simplifier')
 print('----------------------------')
 
-selectedExtensions = tuple(eval(config['extensions'][int(config['flags'][0]['selectedExtension'])]['value']))
-print('Extensions to rename: {}'.format(selectedExtensions))
+print('Simplify filenames ending with: {}'.format(selectedExtensions))
+if enCustomBlacklist is True:
+	print('Custom blacklisted words: {}'.format(customBlacklist))
 
-rmForeign = config['flags'][0]['rmForeign']
-print('Remove non-English characters: {}'.format(rmForeign))
-
-rmDot = config['flags'][0]['rmDot']
-print('Remove dot separator: {}'.format(rmDot))
-
-rmUnderscore = config['flags'][0]['rmUnderscore']
-print('Remove underscore separator: {}'.format(rmUnderscore))
-
-defaultBlacklist = tuple(eval(config['defaultBlacklist']))
-print('\nDefault blacklisted words: {}'.format(defaultBlacklist))
-enDefaultBlacklist = config['flags'][0]['enDefaultBlacklist']
-print('Default blacklist removal enabled: {}'.format(enDefaultBlacklist))
-
-customBlacklist = tuple(eval(config['customBlacklist']))
-print('\nCustom blacklisted words: {}'.format(customBlacklist))
-enCustomBlacklist = config['flags'][0]['enCustomBlacklist']
-print('Custom blacklist enabled: {}'.format(enCustomBlacklist))
-
+print('\nRemove non-English characters: {}'.format(rmForeign))
+print('Capitalize each word: {}'.format(enTitleCase))
+print('Default blacklisted words removal enabled: {}'.format(enDefaultBlacklist))
+print('Custom blacklisted words removal enabled: {}'.format(enCustomBlacklist))
 
 #   Edit settings prompt
 print('\nSettings loaded successfully')
@@ -48,14 +54,8 @@ if userIn.lower() == 'y':
 	clearTerminal()
 	print('Settings updated')
 	print('----------------')
-
-
-#   Terminate the program on invalid input
-def terminate():
-	print('\nTerminating the program. No changes were made.')
-	print('----------------------------------------------')
+	print('Please rerun the program')
 	quit()
-
 
 #   User input: working directory
 clearTerminal()
@@ -64,7 +64,7 @@ rnDir = input('dir: ')
 
 #   Info prompt
 clearTerminal()
-print('\nDesalinate will rename all files ending with {} in "{}"'.format(selectedExtensions, rnDir))
+print('\nProcessing all files ending with {} in "{}"'.format(selectedExtensions, rnDir))
 
 #   Change to working directory and list files
 os.chdir(rnDir)
@@ -83,44 +83,71 @@ if prompt.lower() == 'y':
 else:
 	terminate()
 
-# Core function
-regexBrackets = regex = r'\[(.*?)\]'
+regexBrackets = r'\[(.*?)\]'  # [*]
+regexBitrate = r'(?i)\d\d\dkbps'  # 320kbps
+regexUnderscore = r'_'
 
+# NOTE: program calls A->B->C->D. If, say, typeB is called first, it will break the regex for typeA.
+regexResolutionTypeB = r'(?i)\d\d\dp'  # 720p
+regexResolutionTypeA = r'(?i)\d\d\d\dp'  # 1080p
+regexResolutionTypeD = r'(?i)\d\d\dx\d\d\d'  # 720x480
+regexResolutionTypeC = r'(?i)\d\d\d\dx\d\d\d\d'  # 1920x1080
+
+# Misc
+allRenames = []                         # Store all rename previews. Used to check for duplicates.
+
+# Core function
 def desalinate(mode):
 	for file in os.listdir():
 		newF = file
 		if newF.endswith(selectedExtensions):
 
-			# Remove everything in brackets + '[]'
-			newF = re.sub(regexBrackets, "", newF)
-			# Separate the last word from extension "xyz abc.ext" -> "xyz abc .ext"
+			# Regex removers
+			newF = re.sub(regexBrackets, " ", newF)
+			newF = re.sub(regexBitrate, " ", newF)
+			newF = re.sub(regexUnderscore, " ", newF)
+			newF = re.sub(regexResolutionTypeA, " ", newF)
+			newF = re.sub(regexResolutionTypeB, " ", newF)
+			newF = re.sub(regexResolutionTypeC, " ", newF)
+			newF = re.sub(regexResolutionTypeD, " ", newF)
+
+			# Remove dots + "xyz abc.ext" -> "xyz abc .ext"
 			newF = newF.split('.')
-			newF[0] += ' '
-			newF = '.'.join(newF)
+			newF[-1] = " ." + newF[-1]
+			newF = ' '.join(newF)
 
 			# Remove non-English characters
 			if rmForeign is True:
 				newF = newF.encode("ascii", errors="ignore").decode()
 
-			# Remove default blacklisted words
-			queryWords = newF.split()
-			resultWords = [word for word in queryWords if word.lower() not in defaultBlacklist]
-			newF = ' '.join(resultWords)
+			# Default blacklist
+			for index, words in enumerate(defaultBlacklist):
+				regexBlacklist = "(?i)" + defaultBlacklist[index]
+				newF = re.sub(regexBlacklist, " ", newF)
 
-			# Remove custom blacklisted words
-			queryWords = newF.split()
-			resultWords = [word for word in queryWords if word.lower() not in customBlacklist]
-			newF = ' '.join(resultWords)
+			# Custom blacklist
+			for index, words in enumerate(customBlacklist):
+				regexBlacklist = "(?i)" + customBlacklist[index]
+				newF = re.sub(regexBlacklist, " ", newF)
 
 			# Remove extra whitespace
+			newF = newF.replace('( )', '')
+			newF = newF.replace('()', '')
+			newF = newF.replace('( ', '(')
+			newF = newF.replace(' )', ')')
 			newF = re.sub(' +', ' ', newF)
 			newF = newF.replace(' .', '.')
-			newF = newF.replace('( ', '(')
-			newF = newF.replace(') ', ')')
 			newF = newF.strip()
+
+			# Title case
+			if enTitleCase is True:
+				newF = newF.split('.')
+				newF[0] = newF[0].title()
+				newF = '.'.join(newF)
 
 			if mode is False:
 				print(newF)
+				allRenames.append(newF)  # Safeguard for duplicates
 			else:
 				os.rename(file, newF)
 
@@ -131,10 +158,20 @@ print('------------------')
 workingMode = False  # preview mode
 desalinate(workingMode)
 
+# Safeguard for duplicates
+if len(allRenames) != len(set(allRenames)):
+	print('\n\nFatal error')
+	print('-----------')
+	print('Two or more files end up with the same name upon simplification. This will result in overwrites.')
+	print('Please add episode numbers in them manually.')
+	print('You cannot proceed until you rename the conflicting files manually.')
+	terminate()
+
 #   User input: final confirmation
-print('\nImportant note')
-print('--------------')
-print('There is no backup in this program.\nOnce you approve the renames, they cannot be reverted.')
+print('\nFinalize')
+print('--------')
+print('All renamed files have been validated against overwrite conflicts.')
+print('However, there is no backup in this program. Once you approve the renames, they cannot be reverted.')
 prompt = input('Finalize all renames? (y/n): ')
 
 if prompt.lower() == 'y':
