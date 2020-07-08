@@ -51,7 +51,7 @@ Generic Isekai (2020) - S01E07.mp4
 
 ### Windows
 
-Download and the latest `simplify.exe` from the [releases].
+Download and extract `simplify.zip` from the [here](https://github.com/Az-21/filename-simplifier/releases/download/v2.1/simplify.zip). Extract the contents to a new folder, and run `simplify.exe`
 
 ---
 
