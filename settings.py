@@ -17,11 +17,27 @@ def changeSettings():
 	for ext in config['extensions']:
 		print('{} Extensions: {}'.format(ext['type'], ext['value']))
 
+	#   Extension selection
+	print('\nSelect extensions to work on')
+	print('----------------------------')
+	print('0 = Video extensions')
+	print('1 = Audio extensions')
+	print('2 = Document extensions')
+	print('3 = Custom extensions. NOTE: you can edit them in the next prompt.')
+
+	userIn = str(input('Your selection: '))
+	if userIn in ('0', '1', '2', '3'):
+		config['flags'][0]['selectedExtension'] = userIn
+	else:
+		print('Invalid input. Terminating program')
+		quit()
+
 	#   Prompt to edit custom extensions
 	userIn = input('\nEdit custom extensions? (y/n): ')
 	if userIn.lower() == 'y':
 
-		print('Enter the new custom extensions in the given format')
+		print('Enter the new custom extensions in the given format. This list is caSe InsensiTive.')
+		print('Note on syntax: wrap each extension in single quotes, and separate them by commas. Here\'s an example:')
 		print("'.custom1', '.custom2', '.custom3'")
 
 		userIn = input()
@@ -32,21 +48,6 @@ def changeSettings():
 			config['extensions'][3]['value'] = userIn
 			# Print new custom ext
 			print('\nUpdated successfully.\nCustom extensions: {}'.format(config['extensions'][3]['value']))
-
-	#   Extension selection
-	print('\nSelect extensions to work on')
-	print('----------------------------')
-	print('0 = Video extensions')
-	print('1 = Audio extensions')
-	print('2 = Document extensions')
-	print('3 = Custom extensions')
-
-	userIn = str(input('Your selection: '))
-	if userIn in ('0', '1', '2', '3', '4'):
-		config['flags'][0]['selectedExtension'] = userIn
-	else:
-		print('Invalid input. Terminating program')
-		quit()
 
 	#   Function convert y/n to true/false
 	def tfSelector(boolIn):
@@ -66,13 +67,9 @@ def changeSettings():
 	userIn = input('1. Remove non-English characters? (y/n): ').lower()
 	config['flags'][0]['rmForeign'] = tfSelector(userIn)
 
-	#   Remove dots
-	userIn = input('2. Remove dot separator? (y/n): ').lower()
-	config['flags'][0]['rmDot'] = tfSelector(userIn)
-
-	#   Remove underscore
-	userIn = input('3. Remove underscore separators? (y/n): ').lower()
-	config['flags'][0]['rmUnderscore'] = tfSelector(userIn)
+	#   Remove foreign (non-ASCII) characters
+	userIn = input('2. Use title case (eg: nAMe of shOw -> Name Of Show)? (y/n): ').lower()
+	config['flags'][0]['enTitleCase'] = tfSelector(userIn)
 
 	#   Blacklisted words
 	print('\nList of blacklisted words')
@@ -90,6 +87,7 @@ def changeSettings():
 	if userIn.lower() == 'y':
 
 		print('Enter the new custom blacklist in the given format')
+		print('Note on syntax: wrap each extension in single quotes, and separate them by commas. Here\'s an example:')
 		print("'blacklistedWord1', 'blacklistedWord2'")
 
 		userIn = input()
