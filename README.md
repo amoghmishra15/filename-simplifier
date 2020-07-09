@@ -39,6 +39,10 @@ Generic Isekai (2020) - S01E07.mp4
 * Removes extra whitespace, including the trailing whitespace.
 * Displays preview before finalizing the rename.
 
+```
+NOTE: This section is under work. I'm working on making executable for Windows from Linux, but the module used (pyinstaller) always makes native executables. Calling the pyinstaller under wine seems to work. Currently testing before release.
+
+Meanwhile, you can run the program via terminal
 
 ## Requirements
 
@@ -52,6 +56,8 @@ Generic Isekai (2020) - S01E07.mp4
 ### Windows
 
 Download and extract `simplify.zip` from the [here](https://github.com/Az-21/filename-simplifier/releases/download/v2.1/simplify.zip). Extract the contents to a new folder, and run `simplify.exe`
+
+```
 
 ---
 
