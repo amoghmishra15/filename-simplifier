@@ -1,0 +1,1 @@
+wine ~/.wine/drive_c/Python38/Scripts/pyinstaller.exe --onefile simplify.py
