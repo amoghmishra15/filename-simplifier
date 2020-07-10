@@ -33,16 +33,6 @@ Generic Isekai S01E07.mp4
 * Prevents two or more files ending up with the same rename.
 
 
-## Features
-
-* Simplifies the filename of videos downloaded via torrents. Especially geared towards simplifying the filename of anime torrent files.
-* Removes some common tags like '1080p'. Supports custom blacklist in runtime.
-* Removes non-English characters, dot separators, and underscores. Plus, flags to enable/disable them individually.
-* Removes text inside square brackets.
-* Removes extra whitespace, including the trailing whitespace.
-* Displays preview before finalizing the rename.
-
-
 ## Requirements
 
 * Windows: no prerequisites.
