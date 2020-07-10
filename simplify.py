@@ -100,7 +100,8 @@ if userIn.lower() == 'y':
 #   User input: working directory
 # --------------------------------------------------------------------------------------------------
 clearTerminal()
-print('Enter the full directory/path of the folder which contains files to be renamed')
+print('Enter the full directory/path of the folder which contains files to be renamed. Here\'s an example:')
+print('C:\\Users\\az21\\Videos')
 rnDir = input('dir: ')
 
 #   Info prompt
