@@ -212,12 +212,15 @@ def desalinate(mode):
 
 			# Title case
 			if enTitleCase is True:
+				newF = newF.replace('.', ' .')
 				newF = newF.split(' ')
 				for index, words in enumerate(newF):
 					if bool(re.search(regexUppercase, newF[index])) is False:
-						newF[index] = newF[index].title()
+						if index - 1 != len(newF):      # prevent title case in extension
+							newF[index] = newF[index].title()
 
 				newF = ' '.join(newF)
+				newF = newF.replace(' .', '.')
 
 			# Working mode
 			if mode is False:
