@@ -1,6 +1,19 @@
 import json
 import os
 
+# --------------------------------------------------------------------------------------------------
+#   Terminate the program on invalid input
+# --------------------------------------------------------------------------------------------------
+def terminate():
+	print('\nInvalid input. Terminating the program. No changes were made.')
+	print('----------------------------------------------')
+	input('Press [Enter] to exit...')
+	exit()
+
+
+# --------------------------------------------------------------------------------------------------
+#   Change setting function
+# --------------------------------------------------------------------------------------------------
 def changeSettings():
 	#   Greeting
 	os.system('cls' if os.name == 'nt' else 'clear')
@@ -24,26 +37,25 @@ def changeSettings():
 	print('1 = Audio extensions')
 	print('2 = Document extensions')
 	print('3 = Custom extensions. NOTE: you can edit them in the next prompt.')
+	print('4 = Everything (including folders)')
 
 	userIn = str(input('Your selection: '))
-	if userIn in ('0', '1', '2', '3'):
+	if userIn in ('0', '1', '2', '3', '4'):
 		config['flags'][0]['selectedExtension'] = userIn
 	else:
-		print('Invalid input. Terminating program')
-		quit()
+		terminate()
 
 	#   Prompt to edit custom extensions
 	userIn = input('\nEdit custom extensions? (y/n): ')
 	if userIn.lower() == 'y':
 
 		print('Enter the new custom extensions in the given format. This list is caSe InsensiTive.')
-		print('Note on syntax: wrap each extension in single quotes, and separate them by commas. Here\'s an example:')
-		print("'.custom1', '.custom2', '.custom3'")
+		print('Note on syntax: each extension starts with a dot. Use space to separate extensions. Here\'s an example:')
+		print(".custom1 .custom2 .custom3")
 
 		userIn = input()
-		if (userIn[0] != "'") or (userIn[-1] != "'"):
-			print('Invalid Syntax. Terminating program.')
-			quit()
+		if userIn[0] != ".":
+			terminate()
 		else:
 			config['extensions'][3]['value'] = userIn
 			# Print new custom ext
@@ -63,12 +75,24 @@ def changeSettings():
 	print('\nSet misc flags')
 	print('--------------')
 
-	#   Remove foreign (non-ASCII) characters
-	userIn = input('1. Remove non-English characters? (y/n): ').lower()
+	#   Remove []
+	userIn = input('1. Remove [everything inside brackets]? (y/n): ').lower()
+	config['flags'][0]['rmSquareBracket'] = tfSelector(userIn)
+
+	#   Remove ()
+	userIn = input('2. Remove (everything inside parentheses)? (y/n): ').lower()
+	config['flags'][0]['rmParentheses'] = tfSelector(userIn)
+
+	#   Remove -
+	userIn = input('3. Remove-dashes-between-words? (y/n): ').lower()
+	config['flags'][0]['rmDash'] = tfSelector(userIn)
+
+	#   Remove foreign char
+	userIn = input('4. Remove non-English characters? (y/n): ').lower()
 	config['flags'][0]['rmForeign'] = tfSelector(userIn)
 
-	#   Remove foreign (non-ASCII) characters
-	userIn = input('2. Use title case (eg: nAMe of shOw -> Name Of Show)? (y/n): ').lower()
+	#   Enable title case
+	userIn = input('5. Use title case (eg: reZero season 2 -> reZero Season 2)? (y/n): ').lower()
 	config['flags'][0]['enTitleCase'] = tfSelector(userIn)
 
 	#   Blacklisted words
@@ -87,22 +111,20 @@ def changeSettings():
 	if userIn.lower() == 'y':
 
 		print('Enter the new custom blacklist in the given format')
-		print('Note on syntax: wrap each extension in single quotes, and separate them by commas. Here\'s an example:')
-		print("'blacklistedWord1', 'blacklistedWord2'")
+		print('Note on syntax: separate each word with a space. This list is CasE InsEnsitive Here\'s an example:')
+		print("alpha gamma delta")
 
-		userIn = input()
-		if (userIn[0] != "'") or (userIn[-1] != "'"):
-			print('Invalid Syntax. Terminating program.')
-			quit()
-		else:
-			config['customBlacklist'] = userIn
-			# Print new custom ext
-			print('\nUpdated successfully.\nCustom blacklist: {}'.format(config['customBlacklist']))
+		config['customBlacklist'] = input()
+		# Print new custom ext
+		print('\nUpdated successfully.\nCustom blacklist: {}'.format(config['customBlacklist']))
+		print('\nA note on blacklist: every single instance of the blacklisted word will be removed.')
+		print('Say you blacklisted `WEB`. If a filename has `website` in it\'s name, it will become just `site`.')
+		input('Press [Enter] to continue...')
 
 	userIn = input('Activate custom blacklist? (y/n): ').lower()
 	config['flags'][0]['enCustomBlacklist'] = tfSelector(userIn)
 
 	#   Update config
 	with open('config.json', 'w') as f:
-		json.dump(config, f, indent=2)
+		json.dump(config, f, indent=4)
 
