@@ -18,16 +18,19 @@
 ```
 **After**
 ```
-Generic Isekai (2020) - S01E07.mp4
+Generic Isekai S01E07.mp4
 ```
 * Simplifies the filename of videos downloaded via torrents. Especially geared towards simplifying the filename of anime torrent files.
 * Removes some common metadata tags like '320kbps' '1080p' 'BluRay'. Supports custom blacklist.
-* Removes dot separators, and underscores.
-* Removes text inside square brackets.
+* Removes dot dash and underscore separators. 
+* Removes dash separators. `default = enabled`
+* Removes text inside square brackets. `default = enabled`
+* Removes text inside parentheses. `default = enabled`
 * Removes extra whitespace.
-* Converts to 'Title Case' and removes non-English characters. This can be disabled.
+* Smart capitalization (preserves words like reZero, USA). `default = enabled`
+* Removes non-English characters. `default = enabled`
 * Displays preview before finalizing the rename.
-* Prevents two or more files ending with the same rename.
+* Prevents two or more files ending up with the same rename.
 
 
 ## Features
@@ -39,15 +42,11 @@ Generic Isekai (2020) - S01E07.mp4
 * Removes extra whitespace, including the trailing whitespace.
 * Displays preview before finalizing the rename.
 
-```
-NOTE: This section is under work. I'm working on making executable for Windows from Linux, but the module used (pyinstaller) always makes native executables. Calling the pyinstaller under wine seems to work. Currently testing before release.
-
-Meanwhile, you can run the program via terminal
 
 ## Requirements
 
 * Windows: no prerequisites.
-* Linux and Mac: [Python 3](https://www.python.org/).
+* Linux and Mac: Install python using your package manager or follow instruction on the [official website](https://www.python.org/).
 
 
 ## How to use
@@ -55,7 +54,7 @@ Meanwhile, you can run the program via terminal
 
 ### Windows
 
-Download and extract `simplify.zip` from the [here](https://github.com/Az-21/filename-simplifier/releases/download/v2.1/simplify.zip). Extract the contents to a new folder, and run `simplify.exe`
+Download the latest `simplify.exe` from the [releases](https://github.com/Az-21/filename-simplifier/releases).
 
 ```
 
@@ -65,11 +64,11 @@ Download and extract `simplify.zip` from the [here](https://github.com/Az-21/fil
 ### Linux and Mac
 
 
-[Download](https://github.com/Az-21/filename-simplifier/archive/master.zip) and extract the .zip provided by github.
+[Download](https://github.com/Az-21/filename-simplifier/archive/master.zip) and extract the .zip.
 
 \[Optional\] Or clone this repo using `git clone https://github.com/Az-21/filename-simplifier.git`
 
-Open up your terminal cloned/extracted the `simplify.py` file and run it using the command given below. The program will ask where the files are located. So, you can have `simplify.py` and the files you want to rename in different folders.
+Open up your terminal where you've cloned/extracted the `simplify.py` file and run filename simplifier using
 
 ```bash
 python3 simplify.py
@@ -81,14 +80,13 @@ That's it! Everything is then done using [y/n] prompts
 
 ## Customization
 
-This program has built-in runtime setting customization. Press `y` when prompted with `Edit settings? (y/n): `.
+Press `y` when prompted with `Edit settings? (y/n): `.
 
 Currently you can customize
 
 * Blacklisted words
 * Extensions to work on (custom extensions)
-* Flag to enable/disable removal of non-English characters `(default = enabled)`
-* Flag to enable/disable title case `(default = disabled)`
+* Various flags to enable/disable the `default` actions mentioned in the features earlier.
 
 ## [Link to the Roadmap](https://github.com/Az-21/filename-simplifier/projects/1)
 
@@ -100,7 +98,14 @@ Suggestions are always welcomed.
 # Changelog
 
 ```diff
-v2.1
+v1.0
++ improved title case function (now preserves words like reZero)
++ added dash separator removal
++ moved default config inside the .py (now .exe no longer requires config.json to work)
++ all config lists are now space separated
++ added option to rename everything + folders
+
+v0.6
 + added dot and underscore separators
 + added (almost) all popular audio, video, and subtitle extensions
 + added option to convert to Title Case
@@ -109,7 +114,7 @@ v2.1
 + added safety check for 2+ files ending with the same simplified rename
 + very first .exe release
 
-v2.0
+v0.5
 + refactored code
 + support for CLI settings editor
 + support for custom blacklist
@@ -117,23 +122,23 @@ v2.0
 + foundation for dot removal and underscore removal
 + cleaned up code significantly
 
-v1.2.5
+v0.3.2
 + fixed various bugs and vulnerabilities
 - removed some ASCII art
 
-v1.2.1
+v0.3.1
 + added some ASCII art
 
-v1.2.0
+v0.3
 + moved user setting to a dedicated .py file
 + added support for different file formats (vid, audio, docs, custom)
 
-v1.1
+v0.2
 + remove non-English characters
 + user config support to disable the removal of non-Eng characters
 + increased functionality of extra whitespace removal function ( text ) -> (text)
 
-v1.0
+v0.1
 + remove everything inside square brackets
 + remove extra whitespace
 + user config to support additional filter keywords and extensions
