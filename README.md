@@ -46,7 +46,8 @@ Generic Isekai S01E07.mp4
 
 Download the latest `simplify.exe` from the [releases](https://github.com/Az-21/filename-simplifier/releases).
 
-```
+**NOTE:** This file will take some 10-20 seconds to load on the first run. Furthermore, you might have to click on `run anyways` when prompted by Windows smartscreen. You can prevent the wait and confirmation if you follow the instructions in the upcoming section.
+
 
 ---
 
