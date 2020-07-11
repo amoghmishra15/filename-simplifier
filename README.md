@@ -9,6 +9,11 @@
 </p>
 </b>
 
+## Demo
+
+![Demo GIF](https://raw.githubusercontent.com/Az-21/artwork/master/simplify/simplify-terminal.gif)
+
+
 
 ## Features
 
@@ -89,6 +94,9 @@ Suggestions are always welcomed.
 # Changelog
 
 ```diff
+v1.0.2
++ fixed extension capitalization (.mp4 -> .Mp4)
+
 v1.0
 + improved title case function (now preserves words like reZero)
 + added dash separator removal
