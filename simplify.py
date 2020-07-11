@@ -216,7 +216,7 @@ def desalinate(mode):
 				newF = newF.split(' ')
 				for index, words in enumerate(newF):
 					if bool(re.search(regexUppercase, newF[index])) is False:
-						if index - 1 != len(newF):      # prevent title case in extension
+						if index != len(newF) - 1:      # prevent title case in extension
 							newF[index] = newF[index].title()
 
 				newF = ' '.join(newF)
