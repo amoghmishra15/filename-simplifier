@@ -181,9 +181,13 @@ def desalinate(mode):
 			newF = re.sub(regexResolutionTypeD, " ", newF)
 
 			# Remove dots + "xyz abc.ext" -> "xyz abc .ext"
-			newF = newF.split('.')
-			newF[-1] = " ." + newF[-1]
-			newF = ' '.join(newF)
+			if os.path.isfile(file):
+				newF = newF.split('.')
+				newF[-1] = " ." + newF[-1]
+				newF = ' '.join(newF)
+
+			if os.path.isdir(file):
+				newF = newF.replace('.', ' ')
 
 			# Remove non-English characters
 			if rmForeign is True:
@@ -215,9 +219,17 @@ def desalinate(mode):
 				newF = newF.replace('.', ' .')
 				newF = newF.split(' ')
 				for index, words in enumerate(newF):
-					if bool(re.search(regexUppercase, newF[index])) is False:
-						if index != len(newF) - 1:      # prevent title case in extension
+					if bool(re.search(regexUppercase, newF[index])) is False:   # only work if word is all lowercase
+						if os.path.isfile(file):
+							if index != len(newF) - 1:
+								newF[index] = newF[index].title()
+
+						else:
 							newF[index] = newF[index].title()
+
+					# Article to lowercase
+					if (index != 0) and (newF[index].lower() in ('a', 'an', 'the')):
+						newF[index] = newF[index].lower()
 
 				newF = ' '.join(newF)
 				newF = newF.replace(' .', '.')
