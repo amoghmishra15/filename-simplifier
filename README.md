@@ -94,6 +94,10 @@ Suggestions are always welcomed.
 # Changelog
 
 ```diff
+v1.0.3
++ improved functionality of Title Case. Now, files and folders have different logic for title case
++ added article (a, an, the) to lowercase if index != 0
+
 v1.0.2
 + fixed extension capitalization (.mp4 -> .Mp4)
 
