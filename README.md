@@ -1,7 +1,8 @@
 # Filename Simplifier
 
 <p align="center">
-  <img width="250" height="250" src="https://raw.githubusercontent.com/Az-21/artwork/master/simplify/simplify.png">
+  <img width="250" height="250" src="https://i.imgur.com/yNhvFMr.png">
+  
 </p>
 <b>
 <p align="center" style = "emphasis">
@@ -9,11 +10,11 @@
 </p>
 </b>
 
+[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
+
 ## Demo
 
-![Demo GIF](https://raw.githubusercontent.com/Az-21/artwork/master/simplify/simplify-terminal.gif)
-
-
+![Demo GIF](https://i.imgur.com/kVejoQT.gif)
 
 ## Features
 
@@ -146,3 +147,9 @@ v0.1
 + remove extra whitespace
 + user config to support additional filter keywords and extensions
 ```
+
+## Future of Project
+
+I'm planning to reimplement filename-simplifier in C# with a GUI. .NET5 aims to be a cross-platform framework, so hopefully the .NET3 code should eventually become cross-platform. 
+
+The python version works fine (and I use it regurlarly), but it will not recieve updates because I just cannot get my head around GUI in python. As of May 10, 2021, I've tried implementing GUI three times, but ended up scrapping it each time. Hopefully I get the motivation to pick up this project again.
