@@ -1,8 +1,11 @@
 ﻿using System.Text.RegularExpressions;
 
+
 /* --------- Input parameters --------- */
-string filename = "Land.of_the.    Lustrous(2009)-[HEVC]";
 string cliSeparator = "-";
+string path = @"C:\Zeta\Testing\A";
+string[] extensionFilter = { "*.mkv", "*.mp4" };
+
 
 /* --------- Flags --------- */
 bool removeUnderscoreFlag = true;
@@ -11,32 +14,96 @@ bool removeDotFlag = true;
 bool removeCurvedBracketFlag = true;
 bool removeSquareBracketFlag = true;
 bool cliFriendlyFlag = false;
+bool getAllDirectoriesFlag = true;
+
+
+/* --------- Counters --------- */
+int countUnchanged = 0;
+int countConflict = 0;
+int countRenamed = 0;
+
 
 /* --------- Implementation --------- */
-// Order insensitive operations
-if(removeUnderscoreFlag)
-    filename = RemoveUnderscore(filename);
+// Populate IEnum<> of files with required extensions
+var files = getAllDirectoriesFlag ?
+    extensionFilter.SelectMany(f => Directory.GetFiles(path, f, SearchOption.AllDirectories)) :
+    extensionFilter.SelectMany(f => Directory.GetFiles(path, f, SearchOption.TopDirectoryOnly));
 
-if(removeDashFlag)
-    filename = RemoveDash(filename);
 
-if(removeDotFlag)
-    filename = RemoveDot(filename);
+// Print selected files and get confirmation
+Console.WriteLine("Following files will be affected\n");
+foreach(var fileAddress in files) Console.WriteLine(Path.GetFullPath(fileAddress));
+Console.Write("\nContinue? (y/N): ");
+if(Console.Read() != 'y') System.Environment.Exit(1);
+Console.WriteLine();
 
-if(removeCurvedBracketFlag)
-    filename = RemoveCurvedBracket(filename);
 
-if(removeSquareBracketFlag)
-    filename = RemoveSquareBracket(filename);
+// Apply rename functions
+foreach(var fileAddress in files) {
+    // Grab the metadata
+    string filename = Path.GetFileNameWithoutExtension(fileAddress);
+    string extension = Path.GetExtension(fileAddress);
+    string? directory = Path.GetDirectoryName(fileAddress);
+    string fullFilename = Path.GetFileName(fileAddress);
 
-// Order sensitive operations
-filename = ReduceWhitespace(filename);
 
-if(cliFriendlyFlag)
-    filename = CliFriendlyConvert(filename, cliSeparator);
+    // Order insensitive operations
+    if(removeUnderscoreFlag)
+        filename = RemoveUnderscore(filename);
 
-// Final output
-Console.WriteLine(filename);
+    if(removeDashFlag)
+        filename = RemoveDash(filename);
+
+    if(removeDotFlag)
+        filename = RemoveDot(filename);
+
+    if(removeCurvedBracketFlag)
+        filename = RemoveCurvedBracket(filename);
+
+    if(removeSquareBracketFlag)
+        filename = RemoveSquareBracket(filename);
+
+
+    // Order sensitive operations
+    filename = ReduceWhitespace(filename);
+
+    if(cliFriendlyFlag)
+        filename = CliFriendlyConvert(filename, cliSeparator);
+
+
+    // Full address of processed filename
+    string simplifiedFileAddress = $"{Path.GetDirectoryName(fileAddress)}\\{filename}{Path.GetExtension(fileAddress)}";
+
+
+    // Final rename
+    if(fileAddress == simplifiedFileAddress) {          // No change required
+        Console.WriteLine($"File `{filename}` in `{directory}` is already in simplified form");
+        countUnchanged++;
+    } else if(File.Exists(simplifiedFileAddress)) {     // Rename conflict (already exists)
+        Console.WriteLine(
+            "\n--- Rename Conflict ---\n" +
+            $"Attempting to rename `{fullFilename}` to `{filename}{extension}`\n" +
+            $"A file with the same name already exists in `{directory}`\n" +
+            $"Delete/rename either file manually. No action has been taken.\n" +
+            $"-----------------------\n"
+            );
+        countConflict++;
+    } else {                                            // Can be renamed
+        Console.WriteLine($"Renamed `{fullFilename}` to `{filename}{extension}` in `{directory}`");
+        // File.Move(fileAddress, simplifiedFileAddress);
+        // WARNING: Uncomment to make change permanent
+        countRenamed++;
+    }
+}
+
+// Print results
+Console.WriteLine(
+    "\n\n--- Completed ---\n" +
+    $"Renamed files count: {countRenamed}\n" +
+    $"Already simplified files count: {countUnchanged}\n" +
+    $"Conflict files count: {countConflict} (skipped; manual change required; view log)"
+    );
+
 
 /* --------- Functions --------- */
 // Remove underscore: `abc_def` -> `abc def`
