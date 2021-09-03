@@ -28,5 +28,14 @@
         public static void Success(string oldName, string newName, string ext, string dir) {
             Console.WriteLine($"Renamed '{oldName}' to '{newName}{ext}' in '{dir}'");
         }
+
+
+        // Print results and stats
+        public static void Results(int countRenamed, int countConflict, int countUnchanged) {
+            Console.WriteLine("\n\n--- Completed ---");
+            Console.WriteLine($"Renamed files count: {countRenamed}");
+            Console.WriteLine($"Already simplified files count: {countUnchanged}");
+            Console.WriteLine($"Conflict files count: {countConflict} (skipped; manual change required; view log)");
+        }
     }
 }

@@ -1,32 +1,38 @@
 ﻿using System.Text.RegularExpressions;
 
 namespace simplify {
-    class Simplify {
+
+    // Order insensitive operations
+    partial class Simplify {
         // Remove underscore: `abc_def` -> `abc def`
-        public static string RemoveUnderscore(string filename) {
-            return filename.Replace("_", " ");
+        public static string RemoveUnderscore(string filename, bool isActive) {
+            return isActive ? filename.Replace("_", " ") : filename;
         }
 
         // Remove dash: `abc-def` -> `abc def`
-        public static string RemoveDash(string filename) {
-            return filename.Replace("-", " ");
+        public static string RemoveDash(string filename, bool isActive) {
+            return isActive ? filename.Replace("-", " ") : filename;
         }
 
         // Remove dot: `abc-def` -> `abc def`
-        public static string RemoveDot(string filename) {
-            return filename.Replace(".", " ");
+        public static string RemoveDot(string filename, bool isActive) {
+            return isActive ? filename.Replace(".", " ") : filename;
         }
 
         // Remove parentheses + text: `abc (def)` -> `abc  `
-        public static string RemoveCurvedBracket(string filename) {
-            return Regex.Replace(filename, @" ?\(.*?\)", " ");
+        public static string RemoveCurvedBracket(string filename, bool isActive) {
+            return isActive ? Regex.Replace(filename, @" ?\(.*?\)", " ") : filename;
         }
 
         // Remove square brackets + text: `abc [def]` -> `abc  `
-        public static string RemoveSquareBracket(string filename) {
-            return Regex.Replace(filename, @" ?\[.*?\]", " ");
+        public static string RemoveSquareBracket(string filename, bool isActive) {
+            return isActive ? Regex.Replace(filename, @" ?\[.*?\]", " ") : filename;
         }
 
+    }
+
+    // Order sensitive functions
+    partial class Simplify {
         // Remove 2+ and trailing whitespace: ` abc    def ` -> `abc def`
         public static string ReduceWhitespace(string filename) {
             filename = Regex.Replace(filename, @"\s+", " "); // 2+
@@ -34,8 +40,8 @@ namespace simplify {
         }
 
         // CLI friendly conversion: `abc def` -> `abc-def`
-        public static string CliFriendlyConvert(string filename, string cliSeparator) {
-            return filename.Replace(" ", cliSeparator);
+        public static string CliFriendlyConvert(string filename, string cliSeparator, bool isActive) {
+            return isActive ? filename.Replace(" ", cliSeparator) : filename;
         }
     }
 }
