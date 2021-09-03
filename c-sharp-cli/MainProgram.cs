@@ -16,6 +16,7 @@
             bool removeSquareBracketFlag = true;
 
             bool cliFriendlyFlag = false;
+            bool optimizeArticlesFlag = true;
             bool getAllDirectoriesFlag = true;
 
 
@@ -51,6 +52,7 @@
 
                 // Order sensitive operations
                 newName = Simplify.ReduceWhitespace(newName);
+                newName = Simplify.OptimizeArticles(newName, optimizeArticlesFlag);
                 newName = Simplify.CliFriendlyConvert(newName, cliSeparator, cliFriendlyFlag);
 
 
