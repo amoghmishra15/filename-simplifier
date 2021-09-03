@@ -55,7 +55,7 @@
 
 
                 // Full address of processed filename
-                string simplifiedFileAddress = $"{Path.GetDirectoryName(fileAddress)}\\{newName}{Path.GetExtension(fileAddress)}";
+                string simplifiedFileAddress = $"{directory}\\{newName}{extension}";
 
 
                 // Already simplified form
