@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31612.314
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "c-sharp-cli", "c-sharp-cli.csproj", "{ED469151-7300-41E5-B5F2-1C1633FD9BE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "simplify", "simplify.csproj", "{ED469151-7300-41E5-B5F2-1C1633FD9BE9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
