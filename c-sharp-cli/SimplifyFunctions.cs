@@ -11,6 +11,13 @@ namespace simplify {
                 filename = filename.Replace(sequence, " ");
             }
         }
+        // Remove non-ASCII characters
+
+        public static void RemoveNonASCII(ref string filename) {
+            if(Preferences.removeNonAscii) {
+                filename = Regex.Replace(filename, @"[^\u0000-\u007F]+", string.Empty);
+            }
+        }
 
         // Remove parentheses + text: `abc (def)` -> `abc  `
         public static void RemoveCurvedBracket(ref string filename) {
