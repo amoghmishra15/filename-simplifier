@@ -6,73 +6,56 @@
             string path = @"C:\Zeta\Testing\A";
             string[] extensionFilter = { "*.mp4", "*.mkv" };
 
-
-            // Flags/Settings
-            bool removeDotFlag = true;
-            bool removeDashFlag = true;
-            bool removeUnderscoreFlag = true;
-
-            bool removeCurvedBracketFlag = true;
-            bool removeSquareBracketFlag = true;
-
-            bool cliFriendlyFlag = false;
-            bool optimizeArticlesFlag = true;
-            bool getAllDirectoriesFlag = true;
-
-
             // Counters
             int countRenamed = 0;
             int countConflict = 0;
             int countUnchanged = 0;
 
-
             // Populate files with required extensions
-            IEnumerable<string> files = Scan.Files(path, extensionFilter, getAllDirectoriesFlag);
+            IEnumerable<string> files = Scan.Files(path, extensionFilter);
 
             // Print selected files and get confirmation from user
             Print.Confirmation(files);
 
-
             // Apply rename functions
-            foreach(var fileAddress in files) {
-                // Grab the metadata
-                string newName = Path.GetFileNameWithoutExtension(fileAddress);
-                string extension = Path.GetExtension(fileAddress);
-                string directory = Path.GetDirectoryName(fileAddress) ?? "root\\";
-                string oldNameWithExtension = Path.GetFileName(fileAddress);
+            foreach(var fullPath in files) {
+                // Create metadata object
+                var file = new Metadata(fullPath);
+                string simplify = file.Name;
 
 
                 // Order insensitive operations
-                newName = Simplify.RemoveUnderscore(newName, removeUnderscoreFlag);
-                newName = Simplify.RemoveDash(newName, removeDashFlag);
-                newName = Simplify.RemoveDot(newName, removeDotFlag);
-                newName = Simplify.RemoveCurvedBracket(newName, removeCurvedBracketFlag);
-                newName = Simplify.RemoveSquareBracket(newName, removeSquareBracketFlag);
+                simplify = Simplify.RemoveSequence(simplify, ".", Preferences.removeDot);
+                simplify = Simplify.RemoveSequence(simplify, "-", Preferences.removeDash);
+                simplify = Simplify.RemoveSequence(simplify, "_", Preferences.removeUnderscore);
+
+                simplify = Simplify.RemoveCurvedBracket(simplify);
+                simplify = Simplify.RemoveSquareBracket(simplify);
 
 
                 // Order sensitive operations
-                newName = Simplify.ReduceWhitespace(newName);
-                newName = Simplify.OptimizeArticles(newName, optimizeArticlesFlag);
-                newName = Simplify.CliFriendlyConvert(newName, cliSeparator, cliFriendlyFlag);
+                simplify = Simplify.ReduceWhitespace(simplify);
+                simplify = Simplify.OptimizeArticles(simplify);
+                simplify = Simplify.CliFriendlyConvert(simplify, cliSeparator);
 
 
                 // Full address of processed filename
-                string simplifiedFileAddress = $"{directory}\\{newName}{extension}";
+                string simplifiedFileAddress = $"{file.Directory}\\{simplify}{file.Extension}";
 
 
                 // Already simplified form
-                if(fileAddress == simplifiedFileAddress) {
-                    Print.NoChangeRequired(oldNameWithExtension, directory);
+                if(fullPath == simplifiedFileAddress) {
+                    Print.NoChangeRequired(file.Name, file.Directory);
                     countUnchanged++;
                 }
                 // Rename conflict
                 else if(File.Exists(simplifiedFileAddress)) {
-                    Print.RenameConflict(oldNameWithExtension, newName, extension, directory);
+                    Print.RenameConflict(file.Name, simplify, file.Extension, file.Directory);
                     countConflict++;
                 }
                 // Can be renamed without any conflict
                 else {
-                    Print.Success(oldNameWithExtension, newName, extension, directory);
+                    Print.Success(file.Name, simplify, file.Extension, file.Directory);
                     // File.Move(fileAddress, simplifiedFileAddress);
                     // WARNING: Uncomment to make change permanent
                     countRenamed++;

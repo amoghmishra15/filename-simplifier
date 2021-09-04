@@ -4,29 +4,25 @@ namespace simplify {
 
     // Order insensitive operations
     partial class Simplify {
-        // Remove underscore: `abc_def` -> `abc def`
-        public static string RemoveUnderscore(string filename, bool isActive) {
-            return isActive ? filename.Replace("_", " ") : filename;
-        }
-
-        // Remove dash: `abc-def` -> `abc def`
-        public static string RemoveDash(string filename, bool isActive) {
-            return isActive ? filename.Replace("-", " ") : filename;
-        }
-
-        // Remove dot: `abc-def` -> `abc def`
-        public static string RemoveDot(string filename, bool isActive) {
-            return isActive ? filename.Replace(".", " ") : filename;
+        // Replace sequence/character with whitespace
+        public static string RemoveSequence(string filename, string sequence, bool isActive) {
+            return isActive ?
+                filename.Replace(sequence, " ") :
+                filename;
         }
 
         // Remove parentheses + text: `abc (def)` -> `abc  `
-        public static string RemoveCurvedBracket(string filename, bool isActive) {
-            return isActive ? Regex.Replace(filename, @" ?\(.*?\)", " ") : filename;
+        public static string RemoveCurvedBracket(string filename) {
+            return Preferences.removeCurvedBracket ?
+                Regex.Replace(filename, @" ?\(.*?\)", " ") :
+                filename;
         }
 
         // Remove square brackets + text: `abc [def]` -> `abc  `
-        public static string RemoveSquareBracket(string filename, bool isActive) {
-            return isActive ? Regex.Replace(filename, @" ?\[.*?\]", " ") : filename;
+        public static string RemoveSquareBracket(string filename) {
+            return Preferences.removeSquareBracket ?
+                Regex.Replace(filename, @" ?\[.*?\]", " ") :
+                filename;
         }
 
     }
@@ -40,29 +36,26 @@ namespace simplify {
         }
 
         // Article formatting (a, an, the, etc.)
-        public static string OptimizeArticles(string filename, bool isActive) {
-            if(!isActive)
-                return filename;
+        public static string OptimizeArticles(string filename) {
+            if(!Preferences.optimizeArticles) { return filename; }
 
-            String[] words = filename.Split(' ');
+            string[] splitFilename = filename.Split(' ');
+            string[] articles = { "a", "an", "the", "of", "and", "in", "into", "onto", "from" };
 
-            if(words.Length == 1)
-                return filename;
-
-            String[] articles = { "a", "an", "the", "of", "and", "in", "into", "onto", "from" };
-
-            for(int i = 1; i < words.Length; i++) {
-                foreach(String word in articles) {
-                    if(words[i].ToLower() == word)
-                        words[i] = word;
+            for(int i = 1; i < splitFilename.Length; i++) {
+                foreach(string word in articles) {
+                    if(splitFilename[i].ToLower() == word)
+                        splitFilename[i] = word;
                 }
             }
-            return string.Join(' ', words);
+            return string.Join(' ', splitFilename);
         }
 
         // CLI friendly conversion: `abc def` -> `abc-def`
-        public static string CliFriendlyConvert(string filename, string cliSeparator, bool isActive) {
-            return isActive ? filename.Replace(" ", cliSeparator) : filename;
+        public static string CliFriendlyConvert(string filename, string cliSeparator) {
+            return Preferences.cliFriendly ?
+                filename.Replace(" ", cliSeparator) :
+                filename;
         }
     }
 }
