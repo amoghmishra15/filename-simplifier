@@ -27,6 +27,7 @@
 
                 Simplify.RemoveCurvedBracket(ref rename);
                 Simplify.RemoveSquareBracket(ref rename);
+                Simplify.RemoveNonASCII(ref rename);
 
 
                 // Order sensitive operations [NOTE: all are call by reference]
