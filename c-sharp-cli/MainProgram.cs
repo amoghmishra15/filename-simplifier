@@ -1,18 +1,14 @@
 ﻿namespace simplify {
     class MainProgram {
         static void Main(string[] args) {
-            // Input parameters
-            string cliSeparator = "-";
-            string path = @"C:\Zeta\Testing\A";
-            string[] extensionFilter = { "*.mp4", "*.mkv" };
-
             // Counters
             int countRenamed = 0;
             int countConflict = 0;
             int countUnchanged = 0;
 
             // Populate files with required extensions
-            IEnumerable<string> files = Scan.Files(path, extensionFilter);
+            string[] extensionList = Process.ConvertToExtensionList(Preferences.extensions);
+            IEnumerable<string> files = Scan.Files(Preferences.libraryPath, extensionList);
 
             // Print selected files and get confirmation from user
             Print.Confirmation(files);
@@ -21,26 +17,26 @@
             foreach(var fullPath in files) {
                 // Create metadata object
                 var file = new Metadata(fullPath);
-                string simplify = file.Name;
+                string rename = file.Name;
 
 
-                // Order insensitive operations
-                simplify = Simplify.RemoveSequence(simplify, ".", Preferences.removeDot);
-                simplify = Simplify.RemoveSequence(simplify, "-", Preferences.removeDash);
-                simplify = Simplify.RemoveSequence(simplify, "_", Preferences.removeUnderscore);
+                // Order insensitive operations [NOTE: all are call by reference]
+                Simplify.RemoveSequence(ref rename, ".", Preferences.removeDot);
+                Simplify.RemoveSequence(ref rename, "-", Preferences.removeDash);
+                Simplify.RemoveSequence(ref rename, "_", Preferences.removeUnderscore);
 
-                simplify = Simplify.RemoveCurvedBracket(simplify);
-                simplify = Simplify.RemoveSquareBracket(simplify);
+                Simplify.RemoveCurvedBracket(ref rename);
+                Simplify.RemoveSquareBracket(ref rename);
 
 
-                // Order sensitive operations
-                simplify = Simplify.ReduceWhitespace(simplify);
-                simplify = Simplify.OptimizeArticles(simplify);
-                simplify = Simplify.CliFriendlyConvert(simplify, cliSeparator);
+                // Order sensitive operations [NOTE: all are call by reference]
+                Simplify.ReduceWhitespace(ref rename);
+                Simplify.OptimizeArticles(ref rename);
+                Simplify.ConvertToCliFriendly(ref rename);
 
 
                 // Full address of processed filename
-                string simplifiedFileAddress = $"{file.Directory}\\{simplify}{file.Extension}";
+                string simplifiedFileAddress = $"{file.Directory}\\{rename}{file.Extension}";
 
 
                 // Already simplified form
@@ -50,12 +46,12 @@
                 }
                 // Rename conflict
                 else if(File.Exists(simplifiedFileAddress)) {
-                    Print.RenameConflict(file.Name, simplify, file.Extension, file.Directory);
+                    Print.RenameConflict(file.Name, rename, file.Extension, file.Directory);
                     countConflict++;
                 }
                 // Can be renamed without any conflict
                 else {
-                    Print.Success(file.Name, simplify, file.Extension, file.Directory);
+                    Print.Success(file.Name, rename, file.Extension, file.Directory);
                     // File.Move(fileAddress, simplifiedFileAddress);
                     // WARNING: Uncomment to make change permanent
                     countRenamed++;
