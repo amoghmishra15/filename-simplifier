@@ -1,14 +1,17 @@
 ﻿namespace simplify;
 class MainProgram {
     static void Main(string[] args) {
+        // Load preferences
+        var prefs = Preferences.LoadConfig();
+
         // Counters
         int countRenamed = 0;
         int countConflict = 0;
         int countUnchanged = 0;
 
         // Populate files with required extensions
-        string[] extensionList = Process.ConvertToExtensionList(Preferences.extensions);
-        IEnumerable<string> files = Scan.Files(Preferences.libraryPath, extensionList);
+        string[] extensionList = Process.ConvertToExtensionList(prefs);
+        IEnumerable<string> files = Scan.Files(prefs.LibraryPath, extensionList);
 
         // Print selected files and get confirmation from user
         Print.Confirmation(files);
