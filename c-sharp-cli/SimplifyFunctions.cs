@@ -11,6 +11,14 @@ namespace simplify {
                 filename = filename.Replace(sequence, " ");
             }
         }
+
+        // Convert to Lower Case
+        public static void ConvertToLowercase(ref string filename) {
+            if(Preferences.convertToLowercase) {
+                filename = filename.ToLower();
+            }
+        }
+
         // Remove non-ASCII characters
 
         public static void RemoveNonASCII(ref string filename) {

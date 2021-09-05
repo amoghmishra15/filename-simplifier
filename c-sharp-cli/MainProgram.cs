@@ -27,6 +27,8 @@
 
                 Simplify.RemoveCurvedBracket(ref rename);
                 Simplify.RemoveSquareBracket(ref rename);
+                Simplify.RemoveSquareBracket(ref rename);
+                Simplify.ConvertToLowercase(ref rename);
                 Simplify.RemoveNonASCII(ref rename);
 
 

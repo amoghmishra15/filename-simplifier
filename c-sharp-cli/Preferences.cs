@@ -21,5 +21,6 @@
         // Optimization preferences
         public static bool optimizeArticles = true;
         public static bool removeNonAscii = true;
+        public static bool convertToLowercase = false;
     }
 }
