@@ -1,5 +1,7 @@
 # Filename Simplifier
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9f400677d2c1436585e179cb8d3d885c)](https://app.codacy.com/gh/Az-21/filename-simplifier?utm_source=github.com&utm_medium=referral&utm_content=Az-21/filename-simplifier&utm_campaign=Badge_Grade_Settings)
+
 <p align="center">
   <img width="250" height="250" src="https://i.imgur.com/yNhvFMr.png">
   
