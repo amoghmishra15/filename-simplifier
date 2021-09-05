@@ -1,5 +1,6 @@
 {
     "libraryPath": "C:\\Zeta\\Testing\\A",
     "getAllDirectories": true,
-    "extensions": "mp4, mkv"
+    "extensions": "mp4, mkv",
+    "convertToLowercase": true
 }

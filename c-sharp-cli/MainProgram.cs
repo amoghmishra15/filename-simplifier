@@ -11,7 +11,7 @@ class MainProgram {
 
         // Populate files with required extensions
         string[] extensionList = Process.ConvertToExtensionList(prefs);
-        IEnumerable<string> files = Scan.Files(prefs.LibraryPath, extensionList);
+        IEnumerable<string> files = Scan.Files(prefs, extensionList);
 
         // Print selected files and get confirmation from user
         Print.Confirmation(files);
@@ -24,22 +24,22 @@ class MainProgram {
 
 
             // Order insensitive operations [NOTE: all are call by reference]
-            Simplify.RemoveSequence(ref rename, ".", Preferences.removeDot);
-            Simplify.RemoveSequence(ref rename, "-", Preferences.removeDash);
-            Simplify.RemoveSequence(ref rename, "_", Preferences.removeUnderscore);
+            Simplify.RemoveSequence(ref rename, ".", prefs.RemoveDot);
+            Simplify.RemoveSequence(ref rename, "-", prefs.RemoveDash);
+            Simplify.RemoveSequence(ref rename, "_", prefs.RemoveUnderscore);
 
-            Simplify.RemoveCurvedBracket(ref rename);
-            Simplify.RemoveSquareBracket(ref rename);
-            Simplify.RemoveSquareBracket(ref rename);
-            Simplify.ConvertToLowercase(ref rename);
-            Simplify.RemoveNonASCII(ref rename);
+            Simplify.RemoveCurvedBracket(ref rename, prefs);
+            Simplify.RemoveSquareBracket(ref rename, prefs);
+            Simplify.RemoveSquareBracket(ref rename, prefs);
+            Simplify.RemoveNonASCII(ref rename, prefs);
 
 
             // Order sensitive operations [NOTE: all are call by reference]
             Simplify.ReduceWhitespace(ref rename);
-            Simplify.ConvertToSentenceCase(ref rename);
-            Simplify.OptimizeArticles(ref rename);
-            Simplify.ConvertToCliFriendly(ref rename);
+            Simplify.ConvertToSentenceCase(ref rename, prefs);
+            Simplify.OptimizeArticles(ref rename, prefs);
+            Simplify.ConvertToCliFriendly(ref rename, prefs);
+            Simplify.ConvertToLowercase(ref rename, prefs);
 
 
             // Full address of processed filename

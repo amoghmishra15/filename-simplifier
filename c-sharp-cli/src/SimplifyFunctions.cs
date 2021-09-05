@@ -12,30 +12,30 @@ partial class Simplify {
     }
 
     // Convert to Lower Case
-    public static void ConvertToLowercase(ref string filename) {
-        if(Preferences.convertToLowercase) {
+    public static void ConvertToLowercase(ref string filename, Preferences.JsonConfig prefs) {
+        if(prefs.ConvertToLowercase) {
             filename = filename.ToLower();
         }
     }
 
     // Remove non-ASCII characters
 
-    public static void RemoveNonASCII(ref string filename) {
-        if(Preferences.removeNonAscii) {
+    public static void RemoveNonASCII(ref string filename, Preferences.JsonConfig prefs) {
+        if(prefs.RemoveNonAscii) {
             filename = Regex.Replace(filename, @"[^\u0000-\u007F]+", string.Empty);
         }
     }
 
     // Remove parentheses + text: `abc (def)` -> `abc  `
-    public static void RemoveCurvedBracket(ref string filename) {
-        if(Preferences.removeCurvedBracket) {
+    public static void RemoveCurvedBracket(ref string filename, Preferences.JsonConfig prefs) {
+        if(prefs.RemoveCurvedBracket) {
             filename = Regex.Replace(filename, @" ?\(.*?\)", " ");
         }
     }
 
     // Remove square brackets + text: `abc [def]` -> `abc  `
-    public static void RemoveSquareBracket(ref string filename) {
-        if(Preferences.removeSquareBracket) {
+    public static void RemoveSquareBracket(ref string filename, Preferences.JsonConfig prefs) {
+        if(prefs.RemoveSquareBracket) {
             filename = Regex.Replace(filename, @" ?\[.*?\]", " ");
         }
     }
@@ -50,12 +50,12 @@ partial class Simplify {
     }
 
     // Smart Capitalization `abc aBc` -> `Abc  aBc` || Sentence Case `abc aBc` -> `Abc  ABc`
-    public static void ConvertToSentenceCase(ref string filename) {
-        if(Preferences.smartCapitalization || Preferences.sentenceCase) {
+    public static void ConvertToSentenceCase(ref string filename, Preferences.JsonConfig prefs) {
+        if(prefs.SmartCapitalization || prefs.SentenceCase) {
             string[] splitFilename = filename.Split(' ');
 
             for(int i = 0; i < splitFilename.Length; i++) {
-                if(Preferences.smartCapitalization) {
+                if(prefs.SmartCapitalization) {
                     if(Regex.IsMatch(splitFilename[i], "[A-Z]")) {
                         continue;
                     } else {
@@ -72,8 +72,8 @@ partial class Simplify {
 
 
     // Article formatting (a, an, the, etc.)
-    public static void OptimizeArticles(ref string filename) {
-        if(Preferences.optimizeArticles) {
+    public static void OptimizeArticles(ref string filename, Preferences.JsonConfig prefs) {
+        if(prefs.OptimizeArticles) {
             string[] splitFilename = filename.Split(' ');
             string[] articles = { "a", "an", "the", "of", "and", "in", "into", "onto", "from" };
 
@@ -89,9 +89,9 @@ partial class Simplify {
     }
 
     // CLI friendly conversion: `abc def` -> `abc-def`
-    public static void ConvertToCliFriendly(ref string filename) {
-        if(Preferences.isCliFriendly) {
-            filename = filename.Replace(" ", Preferences.cliSeparator);
+    public static void ConvertToCliFriendly(ref string filename, Preferences.JsonConfig prefs) {
+        if(prefs.IsCliFriendly) {
+            filename = filename.Replace(" ", prefs.CliSeparator);
         }
     }
 }
