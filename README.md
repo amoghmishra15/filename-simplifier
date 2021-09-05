@@ -11,3 +11,5 @@
 </b>
 
 🚧 We're currently working on a reimplementation in C# in both CLI and GUI (will be done after CLI). See the `Releases` for the currently working legacy Python version.
+
+Source code of legacy python version: https://github.com/Az-21/filename-simplifier-legacy
