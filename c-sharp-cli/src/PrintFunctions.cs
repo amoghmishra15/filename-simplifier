@@ -4,7 +4,7 @@ static class Print {
     public static void Confirmation(IEnumerable<string> files) {
         Console.WriteLine("Following files will be affected\n");
 
-        foreach(var fileAddress in files) { Console.WriteLine(Path.GetFullPath(fileAddress)); }
+        foreach(string fileAddress in files) { Console.WriteLine(Path.GetFullPath(fileAddress)); }
 
         Console.Write("\nContinue? (y/N): ");
         if(Console.Read() != 'y') { System.Environment.Exit(1); }
@@ -12,21 +12,21 @@ static class Print {
     }
 
     // Print 'no change required' message
-    public static void NoChangeRequired(string oldName, string dir) {
-        Console.WriteLine($"File '{oldName}' in '{dir}' is already in simplified form");
+    public static void NoChangeRequired(Metadata file) {
+        Console.WriteLine($"File '{file.Name}{file.Extension}' in '{file.Directory}' is already in simplified form");
     }
 
     // Print 'rename conflict' message
-    public static void RenameConflict(string oldName, string newName, string ext, string? dir) {
+    public static void RenameConflict(Metadata file, string rename) {
         Console.WriteLine("\n--- Rename Conflict ---");
-        Console.WriteLine($"Attempting to rename '{oldName}' to '{newName}{ext}'");
-        Console.WriteLine($"A file with the same name already exists in '{dir}'");
+        Console.WriteLine($"Attempting to rename '{file.Name}{file.Extension}' to '{rename}{file.Extension}'");
+        Console.WriteLine($"A file with the same name already exists in '{file.Directory}'");
         Console.WriteLine("Delete/rename either file manually. No action has been taken.\n");
     }
 
     // Print 'success' message
-    public static void Success(string oldName, string newName, string ext, string dir) {
-        Console.WriteLine($"Renamed '{oldName}' to '{newName}{ext}' in '{dir}'");
+    public static void Success(Metadata file, string rename) {
+        Console.WriteLine($"Renamed '{file.Name}{file.Extension}' to '{rename}{file.Extension}' in '{file.Directory}'");
     }
 
 
