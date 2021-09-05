@@ -42,6 +42,28 @@ namespace simplify {
             filename = Regex.Replace(filename, @"\s+", " ").Trim(' ');
         }
 
+        // Smart Capitalization `abc aBc` -> `Abc  aBc` || Sentence Case `abc aBc` -> `Abc  ABc`
+        public static void ConvertToSentenceCase(ref string filename) {
+            if(Preferences.smartCapitalization || Preferences.sentenceCase) {
+                string[] splitFilename = filename.Split(' ');
+
+                for(int i = 0; i < splitFilename.Length; i++) {
+                    if(Preferences.smartCapitalization) {
+                        if(Regex.IsMatch(splitFilename[i], "[A-Z]")) {
+                            continue;
+                        } else {
+                            splitFilename[i] = splitFilename[i].First().ToString().ToUpper() + splitFilename[i].Substring(1);
+                        }
+                    } else {
+                        splitFilename[i] = splitFilename[i].First().ToString().ToUpper() + splitFilename[i].Substring(1);
+                    }
+
+                    filename = string.Join(' ', splitFilename);
+                }
+            }
+        }
+        
+
         // Article formatting (a, an, the, etc.)
         public static void OptimizeArticles(ref string filename) {
             if(Preferences.optimizeArticles) {
