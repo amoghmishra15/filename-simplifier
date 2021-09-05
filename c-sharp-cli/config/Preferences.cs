@@ -23,28 +23,28 @@ class Preferences {
     public class JsonConfig {
         // Crawl settings
         public string LibraryPath { get; set; } = "ERR: null libraryPath in JSON";
-        public bool GetAllDirectories { get; set; } = true;
+        public bool GetAllDirectories { get; set; }
         public string Extensions { get; set; } = "ERR: null extension string in JSON";
 
         // Separators
-        public bool RemoveDot { get; set; } = true;
-        public bool RemoveDash { get; set; } = true;
-        public bool RemoveUnderscore { get; set; } = true;
+        public bool RemoveDot { get; set; }
+        public bool RemoveDash { get; set; }
+        public bool RemoveUnderscore { get; set; }
 
         // Metadata containers
-        public bool RemoveCurvedBracket { get; set; } = true;
-        public bool RemoveSquareBracket { get; set; } = true;
+        public bool RemoveCurvedBracket { get; set; }
+        public bool RemoveSquareBracket { get; set; }
 
         // CLI friendly conversion settings
-        public bool IsCliFriendly { get; set; } = true;
+        public bool IsCliFriendly { get; set; }
         public string CliSeparator { get; set; } = "-";
 
         // Optimizations
-        public bool SentenceCase { get; set; } = false;
-        public bool SmartCapitalization { get; set; } = true;
-        public bool OptimizeArticles { get; set; } = true;
-        public bool RemoveNonAscii { get; set; } = true;
-        public bool ConvertToLowercase { get; set; } = false;
+        public bool SentenceCase { get; set; }
+        public bool SmartCapitalization { get; set; }
+        public bool OptimizeArticles { get; set; }
+        public bool RemoveNonAscii { get; set; }
+        public bool ConvertToLowercase { get; set; }
     }
 }
 

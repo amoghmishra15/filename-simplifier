@@ -1,5 +1,5 @@
 ﻿namespace simplify;
-class Scan {
+static class Scan {
     // Crawl the directory to find files with required extension
     public static IEnumerable<string> Files(Preferences.JsonConfig prefs, string[] extensionList) {
         string path = prefs.LibraryPath;

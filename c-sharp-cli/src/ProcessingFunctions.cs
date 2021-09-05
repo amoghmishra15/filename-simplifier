@@ -1,5 +1,5 @@
 ﻿namespace simplify;
-class Process {
+static class Process {
     public static string[] ConvertToExtensionList(Preferences.JsonConfig prefs) {
         string[] extensionList = prefs.Extensions.Split(',');
         for(int i = 0; i < extensionList.Length; i++) {

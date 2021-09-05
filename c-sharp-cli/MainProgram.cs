@@ -59,7 +59,7 @@ static class MainProgram {
             // Can be renamed without any conflict
             else {
                 Print.Success(file.Name, rename, file.Extension, file.Directory);
-                // File.Move(fileAddress, simplifiedFileAddress);
+                // WARNING: File.Move(fileAddress, simplifiedFileAddress);
                 // WARNING: Uncomment to make change permanent
                 countRenamed++;
             }
