@@ -1,5 +1,5 @@
 ﻿namespace simplify;
-class MainProgram {
+static class MainProgram {
     static void Main(string[] args) {
         // Load preferences
         var prefs = Preferences.LoadConfig();

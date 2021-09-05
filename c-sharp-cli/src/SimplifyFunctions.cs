@@ -3,7 +3,7 @@ namespace simplify;
 
 // NOTE: all of the following finctions are 'call by reference' to increase performance
 // Order insensitive operations
-partial class Simplify {
+static partial class Simplify {
     // Replace sequence/character with whitespace
     public static void RemoveSequence(ref string filename, string sequence, bool isActive) {
         if(isActive) {
@@ -14,7 +14,7 @@ partial class Simplify {
     // Convert to Lower Case
     public static void ConvertToLowercase(ref string filename, Preferences.JsonConfig prefs) {
         if(prefs.ConvertToLowercase) {
-            filename = filename.ToLower();
+            filename = filename.ToLowerInvariant();
         }
     }
 
@@ -43,7 +43,7 @@ partial class Simplify {
 }
 
 // Order sensitive functions
-partial class Simplify {
+static partial class Simplify {
     // Remove 2+ and trailing whitespace: ` abc    def ` -> `abc def`
     public static void ReduceWhitespace(ref string filename) {
         filename = Regex.Replace(filename, @"\s+", " ").Trim(' ');
@@ -59,10 +59,10 @@ partial class Simplify {
                     if(Regex.IsMatch(splitFilename[i], "[A-Z]")) {
                         continue;
                     } else {
-                        splitFilename[i] = splitFilename[i].First().ToString().ToUpper() + splitFilename[i].Substring(1);
+                        splitFilename[i] = splitFilename[i].First().ToString().ToUpper() + splitFilename[i][1..];
                     }
                 } else {
-                    splitFilename[i] = splitFilename[i].First().ToString().ToUpper() + splitFilename[i].Substring(1);
+                    splitFilename[i] = splitFilename[i].First().ToString().ToUpper() + splitFilename[i][1..];
                 }
 
                 filename = string.Join(' ', splitFilename);
@@ -79,8 +79,7 @@ partial class Simplify {
 
             for(int i = 1; i < splitFilename.Length; i++) {
                 foreach(string article in articles) {
-                    if(splitFilename[i].ToLower() == article)
-                        splitFilename[i] = article;
+                    if(splitFilename[i].ToLowerInvariant() == article) { splitFilename[i] = article; }
                 }
             }
 

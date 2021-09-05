@@ -1,13 +1,13 @@
 ﻿namespace simplify;
-class Print {
+static class Print {
     // Print selected files and get confirmation from user
     public static void Confirmation(IEnumerable<string> files) {
         Console.WriteLine("Following files will be affected\n");
 
-        foreach(var fileAddress in files) Console.WriteLine(Path.GetFullPath(fileAddress));
+        foreach(var fileAddress in files) { Console.WriteLine(Path.GetFullPath(fileAddress)); }
 
         Console.Write("\nContinue? (y/N): ");
-        if(Console.Read() != 'y') System.Environment.Exit(1);
+        if(Console.Read() != 'y') { System.Environment.Exit(1); }
         Console.WriteLine();
     }
 
