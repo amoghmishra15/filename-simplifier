@@ -1,6 +1,23 @@
 {
-    "libraryPath": "C:\\Zeta\\Testing\\A",
-    "getAllDirectories": true,
-    "extensions": "mp4, mkv",
-    "convertToLowercase": true
+    "_": "View readme at https://github.com/Az-21/filename-simplifier for more information about config",
+    
+    "LibraryPath": "C:\\Zeta\\Testing\\A",
+    "GetAllDirectories": true,
+    "Extensions": "mp4, mkv",
+
+    "RemoveDot": true,
+    "RemoveDash": true,
+    "RemoveUnderscore": true,
+
+    "RemoveCurvedBracket": true,
+    "RemoveSquareBracket": true,
+
+    "IsCliFriendly": false,
+    "CliSeparator": "-",
+
+    "SentenceCase": false,
+    "SmartCapitalization": true,
+    "OptimizeArticles": true,
+    "RemoveNonAscii": true,
+    "convertToLowercase": false
 }
