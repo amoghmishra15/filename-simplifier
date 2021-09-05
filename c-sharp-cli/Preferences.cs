@@ -1,7 +1,7 @@
 ﻿namespace simplify {
     class Preferences {
         // User settings
-        public static string libraryPath = @"C:\Zeta\Testing\A";
+        public static string libraryPath = @"C:\Users\GR\Desktop\GR\Testing";
         public static bool getAllDirectories = true;
         public static string extensions = "mp4, mkv";
 
@@ -19,6 +19,8 @@
         public static string cliSeparator = "-";
 
         // Optimization preferences
+        public static bool sentenceCase = false;
+        public static bool smartCapitalization = true;
         public static bool optimizeArticles = true;
         public static bool removeNonAscii = true;
         public static bool convertToLowercase = false;

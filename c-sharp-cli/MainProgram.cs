@@ -34,6 +34,7 @@
 
                 // Order sensitive operations [NOTE: all are call by reference]
                 Simplify.ReduceWhitespace(ref rename);
+                Simplify.ConvertToSentenceCase(ref rename);
                 Simplify.OptimizeArticles(ref rename);
                 Simplify.ConvertToCliFriendly(ref rename);
 
