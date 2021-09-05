@@ -55,18 +55,12 @@ static partial class Simplify {
             string[] splitFilename = filename.Split(' ');
 
             for(int i = 0; i < splitFilename.Length; i++) {
-                if(prefs.SmartCapitalization) {
-                    if(Regex.IsMatch(splitFilename[i], "[A-Z]")) {
-                        continue;
-                    } else {
-                        splitFilename[i] = splitFilename[i].First().ToString().ToUpper() + splitFilename[i][1..];
-                    }
-                } else {
-                    splitFilename[i] = splitFilename[i].First().ToString().ToUpper() + splitFilename[i][1..];
-                }
-
-                filename = string.Join(' ', splitFilename);
+                // Check to preserve words like 'USA', 'reZero'
+                if(prefs.SmartCapitalization && Regex.IsMatch(splitFilename[i], "[A-Z]")) { continue; }
+                splitFilename[i] = Process.FirstCharToUppercase(splitFilename[i]);
             }
+
+            filename = string.Join(' ', splitFilename);
         }
     }
 

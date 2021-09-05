@@ -9,4 +9,8 @@ static class Process {
 
         return extensionList;
     }
+
+    public static string FirstCharToUppercase(string word) {
+        return word.First().ToString().ToUpper() + word[1..];
+    }
 }
