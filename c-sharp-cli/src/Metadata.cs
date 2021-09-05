@@ -11,6 +11,6 @@ class Metadata {
         // Extroplate
         Name = Path.GetFileNameWithoutExtension(FullPath);
         Extension = Path.GetExtension(FullPath);
-        Directory = Path.GetDirectoryName(FullPath) ?? "\\";
+        Directory = Path.GetDirectoryName(FullPath) ?? "/";
     }
 }

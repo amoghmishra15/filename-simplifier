@@ -40,7 +40,7 @@ class MainProgram {
 
 
             // Full address of processed filename
-            string simplifiedFileAddress = $"{file.Directory}\\{rename}{file.Extension}";
+            string simplifiedFileAddress = $"{file.Directory}/{rename}{file.Extension}";
 
 
             // Already simplified form
