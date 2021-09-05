@@ -47,14 +47,22 @@ static class MainProgram {
 
 
             // Already simplified form
-            if(fullPath == simplifiedFileAddress) {
+            if(file.Name == rename) {
                 Print.NoChangeRequired(file.Name, file.Directory);
                 countUnchanged++;
             }
             // Rename conflict
             else if(File.Exists(simplifiedFileAddress)) {
-                Print.RenameConflict(file.Name, rename, file.Extension, file.Directory);
-                countConflict++;
+                // Check for Windows specific case-insensitive naming "feature"
+                if(String.Equals(file.Name, rename, StringComparison.OrdinalIgnoreCase)) {
+                    Print.Success(file.Name, rename, file.Extension, file.Directory);
+                    countRenamed++;
+                }
+                // Actual conflict   
+                else {
+                    Print.RenameConflict(file.Name, rename, file.Extension, file.Directory);
+                    countConflict++;
+                }
             }
             // Can be renamed without any conflict
             else {
