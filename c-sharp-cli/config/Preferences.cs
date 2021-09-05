@@ -1,7 +1,7 @@
 ﻿namespace simplify;
 class Preferences {
     // User settings
-    public static string libraryPath = @"C:\Users\GR\Desktop\GR\Testing";
+    public static string libraryPath = @"C:\Zeta\Testing\A";
     public static bool getAllDirectories = true;
     public static string extensions = "mp4, mkv";
 
