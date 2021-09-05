@@ -20,31 +20,31 @@ class Preferences {
         return JsonConvert.DeserializeObject<JsonConfig>(File.ReadAllText(configPath))!;
     }
 
-    public class JsonConfig {
+    public record JsonConfig {
         // Crawl settings
-        public string LibraryPath { get; set; } = "ERR: null libraryPath in JSON";
-        public bool GetAllDirectories { get; set; }
-        public string Extensions { get; set; } = "ERR: null extension string in JSON";
+        public string LibraryPath { get; init; } = "ERR: null libraryPath in JSON";
+        public bool GetAllDirectories { get; init; }
+        public string Extensions { get; init; } = "ERR: null extension string in JSON";
 
         // Separators
-        public bool RemoveDot { get; set; }
-        public bool RemoveDash { get; set; }
-        public bool RemoveUnderscore { get; set; }
+        public bool RemoveDot { get; init; }
+        public bool RemoveDash { get; init; }
+        public bool RemoveUnderscore { get; init; }
 
         // Metadata containers
-        public bool RemoveCurvedBracket { get; set; }
-        public bool RemoveSquareBracket { get; set; }
+        public bool RemoveCurvedBracket { get; init; }
+        public bool RemoveSquareBracket { get; init; }
 
         // CLI friendly conversion settings
-        public bool IsCliFriendly { get; set; }
-        public string CliSeparator { get; set; } = "-";
+        public bool IsCliFriendly { get; init; }
+        public string CliSeparator { get; init; } = "-";
 
         // Optimizations
-        public bool SentenceCase { get; set; }
-        public bool SmartCapitalization { get; set; }
-        public bool OptimizeArticles { get; set; }
-        public bool RemoveNonAscii { get; set; }
-        public bool ConvertToLowercase { get; set; }
+        public bool SentenceCase { get; init; }
+        public bool SmartCapitalization { get; init; }
+        public bool OptimizeArticles { get; init; }
+        public bool RemoveNonAscii { get; init; }
+        public bool ConvertToLowercase { get; init; }
     }
 }
 

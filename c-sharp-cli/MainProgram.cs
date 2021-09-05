@@ -1,7 +1,7 @@
 ﻿namespace simplify;
 static class MainProgram {
     static void Main(string[] args) {
-        // Load preferences
+        // Load preferences [creates an immutable object (record)]
         var prefs = Preferences.LoadConfig();
 
         // Counters
@@ -18,7 +18,7 @@ static class MainProgram {
 
         // Apply rename functions
         foreach(var fullPath in files) {
-            // Create metadata object
+            // Create metadata object [creates an immutable object (record)]
             var file = new Metadata(fullPath);
             string rename = file.Name;
 

@@ -1,9 +1,10 @@
 ﻿namespace simplify;
-class Metadata {
-    public string FullPath { get; set; }
-    public string Name { get; set; }
-    public string Extension { get; set; }
-    public string Directory { get; set; }
+
+public record Metadata {
+    public string FullPath { get; init; }
+    public string Name { get; init; }
+    public string Extension { get; init; }
+    public string Directory { get; init; }
 
     public Metadata(string fullPath) {
         FullPath = fullPath;
