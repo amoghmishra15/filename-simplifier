@@ -47,4 +47,3 @@ class Preferences {
         public bool ConvertToLowercase { get; init; }
     }
 }
-
