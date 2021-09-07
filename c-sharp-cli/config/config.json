@@ -1,23 +1,26 @@
 {
-    "_": "View readme at https://github.com/Az-21/filename-simplifier for more information about config",
-    
-    "LibraryPath": "C:\\Zeta\\Testing\\A",
-    "GetAllDirectories": true,
-    "Extensions": "mp4, mkv",
+  "_": "View readme at https://github.com/Az-21/filename-simplifier for more information about config",
 
-    "RemoveDot": true,
-    "RemoveDash": true,
-    "RemoveUnderscore": true,
+  "LibraryPath": "C:\\Users\\GR\\Desktop\\GR\\Testing",
+  "GetAllDirectories": true,
+  "Extensions": "mp4, mkv",
 
-    "RemoveCurvedBracket": true,
-    "RemoveSquareBracket": true,
+  "RemoveDot": true,
+  "RemoveDash": true,
+  "RemoveUnderscore": true,
 
-    "IsCliFriendly": false,
-    "CliSeparator": "-",
+  "RemoveCurvedBracket": true,
+  "RemoveSquareBracket": true,
 
-    "SentenceCase": false,
-    "SmartCapitalization": true,
-    "OptimizeArticles": true,
-    "RemoveNonAscii": true,
-    "convertToLowercase": false
+  "IsCliFriendly": false,
+  "CliSeparator": "-",
+
+  "SentenceCase": false,
+  "SmartCapitalization": true,
+  "OptimizeArticles": true,
+  "RemoveNonAscii": true,
+  "convertToLowercase": false,
+
+  "AppendYearPre": true,
+  "AppendYearPost": true
 }

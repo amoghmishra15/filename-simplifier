@@ -45,5 +45,8 @@ class Preferences {
         public bool OptimizeArticles { get; init; }
         public bool RemoveNonAscii { get; init; }
         public bool ConvertToLowercase { get; init; }
+
+        public bool AppendYearPre { get; init; }
+        public bool AppendYearPost { get; init; }
     }
 }

@@ -2,6 +2,20 @@
 namespace simplify;
 
 // NOTE: all of the following finctions are 'call by reference' to increase performance
+// Order sensitive functions (first)
+static partial class Simplify {
+    //Preserving release year for movie/series before BracketRemover function
+    public static void AppendYearPre(ref string filename, Preferences.JsonConfig prefs) {
+        if(prefs.AppendYearPre) {
+            Match year = Regex.Match(filename, @"(19|20)\d{2}");
+            filename = filename.Remove(year.Index, 4);
+            filename = filename.Replace("()", string.Empty);
+
+            filename += $" PLACEHOLDERRIGHT{year.Value}PLACEHOLDERLEFT";
+        }
+    }
+}
+
 // Order insensitive operations
 static partial class Simplify {
     // Replace sequence/character with whitespace
@@ -42,8 +56,16 @@ static partial class Simplify {
 
 }
 
-// Order sensitive functions
+// Order sensitive functions (last)
 static partial class Simplify {
+    //Restoring release year for movie/series and appending it at the last of filename
+    public static void AppendYearPost(ref string filename, Preferences.JsonConfig prefs) {
+        if(prefs.AppendYearPost) {
+            filename = filename.Replace("PLACEHOLDERRIGHT", "(");
+            filename = filename.Replace("PLACEHOLDERLEFT", ")");
+        }
+    }
+
     // Remove 2+ and trailing whitespace: ` abc    def ` -> `abc def`
     public static void ReduceWhitespace(ref string filename) {
         filename = Regex.Replace(filename, @"\s+", " ").Trim(' ');

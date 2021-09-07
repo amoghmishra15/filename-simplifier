@@ -22,6 +22,8 @@ static class MainProgram {
             var file = new Metadata(fullPath);
             string rename = file.Name;
 
+            // Order sensitive operations (first) [NOTE: all are call by reference]
+            Simplify.AppendYearPre(ref rename, prefs);
 
             // Order insensitive operations [NOTE: all are call by reference]
             Simplify.RemoveSequence(ref rename, ".", prefs.RemoveDot);
@@ -34,7 +36,8 @@ static class MainProgram {
             Simplify.RemoveNonASCII(ref rename, prefs);
 
 
-            // Order sensitive operations [NOTE: all are call by reference]
+            // Order sensitive operations (last) [NOTE: all are call by reference]
+            Simplify.AppendYearPost(ref rename, prefs);
             Simplify.ReduceWhitespace(ref rename);
             Simplify.ConvertToSentenceCase(ref rename, prefs);
             Simplify.OptimizeArticles(ref rename, prefs);
