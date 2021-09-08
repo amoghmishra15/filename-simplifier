@@ -5,7 +5,9 @@ static class MainProgram {
         var prefs = Preferences.LoadConfig();
 
         // Process input arguments
-        bool renameCliFlag = false;
+        bool makeChangesPermanent = false;
+        bool renameFolders = false;
+
         string libraryPath = prefs.LibraryPath;
         if(args.Any()) {
             libraryPath = args[0]; // if path is provided by argument, overrule config.json path
@@ -13,23 +15,42 @@ static class MainProgram {
 
             // Flags
             string cliFlags = string.Join(" ", args).ToLowerInvariant();
-            if(cliFlags.Contains("--rename")) {
-                renameCliFlag = true;
-            }
+
+            if(cliFlags.Contains("--rename")) { makeChangesPermanent = true; }
+            if(cliFlags.Contains("--renamefolders")) { renameFolders = true; }
         }
+
+        // Update runtime preferences
+        prefs.MakeChangesPermanent = makeChangesPermanent;
+        prefs.RenameFolders = renameFolders;
 
         // Init counters (unchanged, conflict, renamed)
         var counter = new Counter(0, 0, 0);
 
-        // Populate files with required extensions
-        var files = Scan.Files(libraryPath, prefs);
-
-        // Print selected files and get confirmation from user
-        Print.Confirmation(files, renameCliFlag);
+        // Rename folders
+        if(prefs.RenameFolders) {
+            var folders = Scan.Folders(libraryPath, prefs);
+            if(folders.Any()) {
+                if(Print.FolderConfirmation(folders, makeChangesPermanent)) {
+                    for(int i = folders.Length - 1; i >= 0; i--) {
+                        // WARNING: Reversed loop order becasuse innermost folder must be renamed first
+                        // Simplifying the outermost folder first will break address of inner folders
+                        string fullPath = folders[i];
+                        Rename.SimplifyFolder(prefs, fullPath, ref counter);
+                    }
+                }
+            }
+            Console.WriteLine("\n\n");
+        }
 
         // Rename files
-        foreach(var fullPath in files) {
-            Rename.ApplySimplificationMethods(prefs, fullPath, renameCliFlag, ref counter);
+        var files = Scan.Files(libraryPath, prefs);
+        if(files.Any()) {
+            if(Print.FilesConfirmation(files, makeChangesPermanent)) {
+                foreach(var fullPath in files) {
+                    Rename.SimplifyFile(prefs, fullPath, ref counter);
+                }
+            }
         }
 
         // Print results

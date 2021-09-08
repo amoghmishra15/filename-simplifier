@@ -20,29 +20,34 @@ class Preferences {
         // Deserialize
         return JsonConvert.DeserializeObject<JsonConfig>(File.ReadAllText(configPath))!;
     }
+}
 
-    public record JsonConfig {
-        // Crawl settings
-        public string LibraryPath { get; init; } = "ERR: null libraryPath in JSON";
-        public bool GetAllDirectories { get; init; }
-        public string Extensions { get; init; } = "ERR: null extension string in JSON";
-        public string Blacklist { get; init; } = "NOBLACKLISTPASSED";
+public class JsonConfig {
+    // Crawl settings
+    public string LibraryPath { get; init; } = "ERR: null libraryPath in JSON";
+    public bool GetAllDirectories { get; init; }
+    public string Extensions { get; init; } = "ERR: null extension string in JSON";
+    public string Blacklist { get; init; } = "NOBLACKLISTPASSED";
 
-        // Metadata containers
-        public bool RemoveCurvedBracket { get; init; }
-        public bool RemoveSquareBracket { get; init; }
+    // Metadata containers
+    public bool RemoveCurvedBracket { get; init; }
+    public bool RemoveSquareBracket { get; init; }
 
-        // CLI friendly conversion settings
-        public bool IsCliFriendly { get; init; }
-        public string CliSeparator { get; init; } = "-";
+    // CLI friendly conversion settings
+    public bool IsCliFriendly { get; init; }
+    public string CliSeparator { get; init; } = "-";
 
-        // Optimizations
-        public bool SentenceCase { get; init; }
-        public bool SmartCapitalization { get; init; }
-        public bool OptimizeArticles { get; init; }
-        public bool RemoveNonAscii { get; init; }
-        public bool ConvertToLowercase { get; init; }
-        public bool AppendYear { get; init; }
-        public bool SmartEpisodeDash { get; init; }
-    }
+    // Optimizations
+    public bool SentenceCase { get; init; }
+    public bool SmartCapitalization { get; init; }
+    public bool OptimizeArticles { get; init; }
+    public bool RemoveNonAscii { get; init; }
+    public bool ConvertToLowercase { get; init; }
+    public bool AppendYear { get; init; }
+    public bool SmartEpisodeDash { get; init; }
+
+    // Runtime vars
+    // WARNING: do NOT add these in 'config.json'
+    public bool MakeChangesPermanent { get; set; }
+    public bool RenameFolders { get; set; }
 }

@@ -5,7 +5,7 @@ namespace simplify;
 // Order sensitive functions (first)
 static partial class Simplify {
     //Preserving release year for movie/series before BracketRemover function
-    public static void AppendYearPre(ref string filename, Preferences.JsonConfig prefs) {
+    public static void AppendYearPre(ref string filename, JsonConfig prefs) {
         if(prefs.AppendYear) {
             Match releaseYear = Regex.Match(filename, @"(19|20)\d{2}", RegexOptions.RightToLeft);
             if(releaseYear.Success) {
@@ -21,7 +21,7 @@ static partial class Simplify {
 // Order insensitive operations
 static partial class Simplify {
     // Blacklist
-    public static void RemoveBlacklistedWords(ref string filename, Preferences.JsonConfig prefs) {
+    public static void RemoveBlacklistedWords(ref string filename, JsonConfig prefs) {
         string[] blacklist = prefs.Blacklist.Split(',');
         for(int i = 0; i < blacklist.Length; i++) {
             ReduceWhitespace(ref blacklist[i]);
@@ -30,7 +30,7 @@ static partial class Simplify {
     }
 
     // Convert to Lower Case
-    public static void ConvertToLowercase(ref string filename, Preferences.JsonConfig prefs) {
+    public static void ConvertToLowercase(ref string filename, JsonConfig prefs) {
         if(prefs.ConvertToLowercase) {
             filename = filename.ToLowerInvariant();
         }
@@ -38,21 +38,21 @@ static partial class Simplify {
 
     // Remove non-ASCII characters
 
-    public static void RemoveNonASCII(ref string filename, Preferences.JsonConfig prefs) {
+    public static void RemoveNonASCII(ref string filename, JsonConfig prefs) {
         if(prefs.RemoveNonAscii) {
             filename = Regex.Replace(filename, @"[^\u0000-\u007F]+", string.Empty);
         }
     }
 
     // Remove parentheses + text: `abc (def)` -> `abc  `
-    public static void RemoveCurvedBracket(ref string filename, Preferences.JsonConfig prefs) {
+    public static void RemoveCurvedBracket(ref string filename, JsonConfig prefs) {
         if(prefs.RemoveCurvedBracket) {
             filename = Regex.Replace(filename, @" ?\(.*?\)", " ");
         }
     }
 
     // Remove square brackets + text: `abc [def]` -> `abc  `
-    public static void RemoveSquareBracket(ref string filename, Preferences.JsonConfig prefs) {
+    public static void RemoveSquareBracket(ref string filename, JsonConfig prefs) {
         if(prefs.RemoveSquareBracket) {
             filename = Regex.Replace(filename, @" ?\[.*?\]", " ");
         }
@@ -63,7 +63,7 @@ static partial class Simplify {
 // Order sensitive functions (last)
 static partial class Simplify {
     //Restoring release year for movie/series and appending it at the last of filename
-    public static void AppendYearPost(ref string filename, Preferences.JsonConfig prefs) {
+    public static void AppendYearPost(ref string filename, JsonConfig prefs) {
         if(prefs.AppendYear) {
             filename = filename.Replace("PLACEHOLDERLEFT", "(");
             filename = filename.Replace("PLACEHOLDERRIGHT", ")");
@@ -76,7 +76,7 @@ static partial class Simplify {
     }
 
     // Smart Capitalization `abc aBc` -> `Abc  aBc` || Sentence Case `abc aBc` -> `Abc  ABc`
-    public static void ConvertToSentenceCase(ref string filename, Preferences.JsonConfig prefs) {
+    public static void ConvertToSentenceCase(ref string filename, JsonConfig prefs) {
         if(prefs.SmartCapitalization || prefs.SentenceCase) {
             string[] splitFilename = filename.Split(' ');
 
@@ -92,7 +92,7 @@ static partial class Simplify {
 
 
     // Article formatting (a, an, the, etc.)
-    public static void OptimizeArticles(ref string filename, Preferences.JsonConfig prefs) {
+    public static void OptimizeArticles(ref string filename, JsonConfig prefs) {
         if(prefs.OptimizeArticles) {
             string[] splitFilename = filename.Split(' ');
             string[] articles = { "a", "an", "the", "of", "and", "in", "into", "onto", "from" };
@@ -108,7 +108,7 @@ static partial class Simplify {
     }
 
     // Smart Episode Dash Adder
-    public static void SmartEpisodeDash(ref string filename, Preferences.JsonConfig prefs) {
+    public static void SmartEpisodeDash(ref string filename, JsonConfig prefs) {
         if(prefs.SmartEpisodeDash) {
             Match match = Regex.Match(filename, @"(S\d+E\d+)|(E\d+)", RegexOptions.IgnoreCase);
             if(match.Success) {
@@ -118,7 +118,7 @@ static partial class Simplify {
     }
 
     // CLI friendly conversion: `abc def` -> `abc-def`
-    public static void ConvertToCliFriendly(ref string filename, Preferences.JsonConfig prefs) {
+    public static void ConvertToCliFriendly(ref string filename, JsonConfig prefs) {
         if(prefs.IsCliFriendly) {
             filename = filename.Replace(" ", prefs.CliSeparator);
             filename = filename.Replace("---", "-"); // Catch case for smart episode dash creating 3 dashes

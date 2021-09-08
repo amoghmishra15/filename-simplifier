@@ -10,4 +10,3 @@ class Counter {
         Renamed = renamed;
     }
 }
-
