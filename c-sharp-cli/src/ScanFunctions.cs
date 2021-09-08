@@ -7,7 +7,7 @@ static class Scan {
         // Invalid path check
         if(!Directory.Exists(path)) {
             Print.ErrorBlock();
-            Console.WriteLine($"Directory {Print.ErrorColor(path)} does not exist.\nExiting...");
+            Console.WriteLine($"Directory {Print.ErrorText(path)} does not exist.\nExiting...");
             Environment.Exit(1);
         }
 
@@ -19,7 +19,7 @@ static class Scan {
         // No files found check
         if(!files.Any()) {      // equivalent to `files.isEmpty()`
             Print.InfoBlock();
-            Console.WriteLine($"No file found with extension [{Print.InfoColor(prefs.Extensions)}] in {Print.InfoColor(path)}\nExiting...");
+            Console.WriteLine($"No file found with extension [{Print.InfoText(prefs.Extensions)}] in {Print.InfoText(path)}\nExiting...");
             Environment.Exit(1);
         }
 

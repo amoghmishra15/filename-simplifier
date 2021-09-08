@@ -1,6 +1,20 @@
 ﻿namespace simplify;
 static class MainProgram {
     static void Main(string[] args) {
+        // Process input arguments
+        bool renameCliFlag = false;
+        if(args.Any()) {
+            string argPath = args[0];
+            Console.WriteLine($"\nLibrary path: {Print.InfoText(argPath)}");
+
+            // Flags
+            string cliFlags = string.Join(" ", args).ToLowerInvariant();
+            if(cliFlags.Contains("--rename")) {
+                renameCliFlag = true;
+            }
+        }
+
+
         // Load preferences [creates an immutable object (record)]
         var prefs = Preferences.LoadConfig();
 
@@ -14,7 +28,7 @@ static class MainProgram {
         IEnumerable<string> files = Scan.Files(prefs, extensionList);
 
         // Print selected files and get confirmation from user
-        Print.Confirmation(files);
+        Print.Confirmation(files, renameCliFlag);
 
         // Apply rename functions
         foreach(var fullPath in files) {
@@ -57,9 +71,11 @@ static class MainProgram {
             // Rename conflict
             else if(File.Exists(simplifiedFileAddress)) {
                 // Check for Windows specific case-insensitive directory
-                if(String.Equals(file.Name, rename, StringComparison.OrdinalIgnoreCase)) {
-                    // File . Move ( fileAddress -> temp -> simplifiedFileAddress );
-                    // WARNING: Uncomment to make change permanent
+                if(string.Equals(file.Name, rename, StringComparison.OrdinalIgnoreCase)) {
+                    if(renameCliFlag) {
+                        File.Move(file.FullPath, $"{file.Directory}/TEMP_SIMPLIFY_RENAME");
+                        File.Move($"{file.Directory}/TEMP_SIMPLIFY_RENAME", simplifiedFileAddress);
+                    }
                     Print.Success(file, rename);
                     countRenamed++;
                 }
@@ -72,8 +88,7 @@ static class MainProgram {
             // Can be renamed without any conflict
             else {
                 Print.Success(file, rename);
-                // File . Move ( fileAddress -> simplifiedFileAddress );
-                // WARNING: Uncomment to make change permanent
+                if(renameCliFlag) { File.Move(file.FullPath, simplifiedFileAddress); }
                 countRenamed++;
             }
         }
