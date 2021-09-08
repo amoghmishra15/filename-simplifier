@@ -7,7 +7,7 @@ static class Scan {
         // Invalid path check
         if(!Directory.Exists(path)) {
             Console.WriteLine($"Directory '{path}' does not exist. Exiting...");
-            System.Environment.Exit(1);
+            Environment.Exit(1);
         }
 
         // Load files in the directory
@@ -18,7 +18,7 @@ static class Scan {
         // No files found check
         if(!files.Any()) {      // equivalent to `files.isEmpty()`
             Console.WriteLine($"No file found with extension [{string.Join(", ", extensionList)}] in '{path}'\nExiting...");
-            System.Environment.Exit(1);
+            Environment.Exit(1);
         }
 
         return files;

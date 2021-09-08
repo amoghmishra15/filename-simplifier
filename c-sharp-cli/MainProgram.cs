@@ -63,7 +63,7 @@ static class MainProgram {
                     Print.Success(file, rename);
                     countRenamed++;
                 }
-                // Actual conflict   
+                // Actual conflict
                 else {
                     Print.RenameConflict(file, rename);
                     countConflict++;
