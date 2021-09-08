@@ -58,8 +58,8 @@ static class Print {
         foreach(string fileAddress in files) {
             string path = Path.GetFullPath(fileAddress);
             Console.WriteLine(InfoText(path));
-            Console.WriteLine();
         }
+        Console.WriteLine();
 
         if(!renameCliFlag) {
             InfoBlock();
