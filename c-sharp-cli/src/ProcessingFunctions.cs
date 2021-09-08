@@ -11,6 +11,7 @@ static class Process {
     }
 
     public static string FirstCharToUppercase(string word) {
-        return word.First().ToString().ToUpper() + word[1..];
+        if(word == string.Empty) { return string.Empty; }
+        return word.First().ToString().ToUpperInvariant() + word[1..];
     }
 }

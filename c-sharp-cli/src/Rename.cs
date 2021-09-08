@@ -1,5 +1,5 @@
 ﻿namespace simplify;
-class Rename {
+static class Rename {
     public static void ApplySimplificationMethods(Preferences.JsonConfig prefs, string fullPath, bool renameCliFlag, ref Counter counter) {
         // Create metadata object [creates an immutable object (record)]
         var file = new Metadata(fullPath);
@@ -21,6 +21,7 @@ class Rename {
 
         // Order sensitive operations (last) [NOTE: all are call by reference]
         Simplify.AppendYearPost(ref rename, prefs);
+        Simplify.SmartEpisodeDash(ref rename, prefs);
         Simplify.ReduceWhitespace(ref rename);
         Simplify.ConvertToSentenceCase(ref rename, prefs);
         Simplify.OptimizeArticles(ref rename, prefs);
