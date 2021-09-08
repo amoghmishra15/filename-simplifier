@@ -1,9 +1,7 @@
 ﻿namespace simplify;
 static class Scan {
     // Crawl the directory to find files with required extension
-    public static IEnumerable<string> Files(Preferences.JsonConfig prefs, string[] extensionList) {
-        string path = prefs.LibraryPath;
-
+    public static IEnumerable<string> Files(string path, Preferences.JsonConfig prefs) {
         // Invalid path check
         if(!Directory.Exists(path)) {
             Print.ErrorBlock();
@@ -12,6 +10,7 @@ static class Scan {
         }
 
         // Load files in the directory
+        string[] extensionList = Process.ConvertToExtensionList(prefs);
         IEnumerable<string> files = prefs.GetAllDirectories ?
             extensionList.SelectMany(f => Directory.GetFiles(path, f, SearchOption.AllDirectories)) :
             extensionList.SelectMany(f => Directory.GetFiles(path, f, SearchOption.TopDirectoryOnly));

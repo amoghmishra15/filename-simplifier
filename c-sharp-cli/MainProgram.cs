@@ -1,11 +1,15 @@
 ﻿namespace simplify;
 static class MainProgram {
     static void Main(string[] args) {
+        // Load preferences [creates an immutable object (record)]
+        var prefs = Preferences.LoadConfig();
+
         // Process input arguments
         bool renameCliFlag = false;
+        string libraryPath = prefs.LibraryPath;
         if(args.Any()) {
-            string argPath = args[0];
-            Console.WriteLine($"\nLibrary path: {Print.InfoText(argPath)}");
+            libraryPath = args[0]; // if path is provided by argument, overrule config.json path
+            Console.WriteLine($"\nLibrary path: {Print.InfoText(libraryPath)}");
 
             // Flags
             string cliFlags = string.Join(" ", args).ToLowerInvariant();
@@ -14,18 +18,13 @@ static class MainProgram {
             }
         }
 
-
-        // Load preferences [creates an immutable object (record)]
-        var prefs = Preferences.LoadConfig();
-
         // Counters
         int countRenamed = 0;
         int countConflict = 0;
         int countUnchanged = 0;
 
         // Populate files with required extensions
-        string[] extensionList = Process.ConvertToExtensionList(prefs);
-        IEnumerable<string> files = Scan.Files(prefs, extensionList);
+        var files = Scan.Files(libraryPath, prefs);
 
         // Print selected files and get confirmation from user
         Print.Confirmation(files, renameCliFlag);
