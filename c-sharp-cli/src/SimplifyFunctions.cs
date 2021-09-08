@@ -8,10 +8,11 @@ static partial class Simplify {
     public static void AppendYearPre(ref string filename, Preferences.JsonConfig prefs) {
         if(prefs.AppendYearPre) {
             Match releaseYear = Regex.Match(filename, @"(19|20)\d{2}");
-            filename = filename.Remove(releaseYear.Index, 4);
-            filename = filename.Replace("()", string.Empty);
-
-            filename += $" PLACEHOLDERLEFT{releaseYear.Value}PLACEHOLDERRIGHT";
+            if(releaseYear.Success) {
+                filename = filename.Remove(releaseYear.Index, 4);
+                filename = filename.Replace("()", string.Empty);
+                filename += $" PLACEHOLDERLEFT{releaseYear.Value}PLACEHOLDERRIGHT";
+            }
         }
     }
 }
