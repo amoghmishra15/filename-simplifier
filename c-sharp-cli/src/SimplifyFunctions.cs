@@ -105,10 +105,21 @@ static partial class Simplify {
         }
     }
 
+    // Smart Episode Dash Adder
+    public static void SmartEpisodeDash(ref string filename, Preferences.JsonConfig prefs) {
+        if(prefs.SmartEpisodeDash) {
+            Match match = Regex.Match(filename, @"(S\d+E\d+)|(E\d+)", RegexOptions.IgnoreCase);
+            if(match.Success) {
+                filename = filename.Insert(match.Index, " - ");
+            }
+        }
+    }
+
     // CLI friendly conversion: `abc def` -> `abc-def`
     public static void ConvertToCliFriendly(ref string filename, Preferences.JsonConfig prefs) {
         if(prefs.IsCliFriendly) {
             filename = filename.Replace(" ", prefs.CliSeparator);
+            filename = filename.Replace("---", "-"); // Catch case for smart episode dash creating 3 dashes
         }
     }
 }
