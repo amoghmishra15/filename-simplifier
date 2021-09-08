@@ -48,5 +48,7 @@ class Preferences {
         public bool ConvertToLowercase { get; init; }
 
         public bool AppendYear { get; init; }
+
+        public bool SmartEpisodeDash { get; init; }
     }
 }
