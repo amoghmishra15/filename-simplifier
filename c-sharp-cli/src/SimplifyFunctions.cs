@@ -6,11 +6,12 @@ namespace simplify;
 static partial class Simplify {
     //Preserving release year for movie/series before BracketRemover function
     public static void AppendYearPre(ref string filename, Preferences.JsonConfig prefs) {
-        if(prefs.AppendYearPre) {
-            Match releaseYear = Regex.Match(filename, @"(19|20)\d{2}");
+        if(prefs.AppendYear) {
+            Match releaseYear = Regex.Match(filename, @"(19|20)\d{2}", RegexOptions.RightToLeft);
             if(releaseYear.Success) {
                 filename = filename.Remove(releaseYear.Index, 4);
                 filename = filename.Replace("()", string.Empty);
+                filename = filename.Replace("[]", string.Empty);
                 filename += $" PLACEHOLDERLEFT{releaseYear.Value}PLACEHOLDERRIGHT";
             }
         }
@@ -61,7 +62,7 @@ static partial class Simplify {
 static partial class Simplify {
     //Restoring release year for movie/series and appending it at the last of filename
     public static void AppendYearPost(ref string filename, Preferences.JsonConfig prefs) {
-        if(prefs.AppendYearPost) {
+        if(prefs.AppendYear) {
             filename = filename.Replace("PLACEHOLDERLEFT", "(");
             filename = filename.Replace("PLACEHOLDERRIGHT", ")");
         }

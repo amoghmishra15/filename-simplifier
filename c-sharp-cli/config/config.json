@@ -21,6 +21,5 @@
     "RemoveNonAscii": true,
     "convertToLowercase": false,
 
-    "AppendYearPre": true,
-    "AppendYearPost": true
+    "AppendYear": true
 }
