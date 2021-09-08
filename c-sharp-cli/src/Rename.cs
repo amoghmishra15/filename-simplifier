@@ -9,13 +9,9 @@ static class Rename {
         Simplify.AppendYearPre(ref rename, prefs);
 
         // Order insensitive operations [NOTE: all are call by reference]
-        Simplify.RemoveSequence(ref rename, ".", prefs.RemoveDot);
-        Simplify.RemoveSequence(ref rename, "-", prefs.RemoveDash);
-        Simplify.RemoveSequence(ref rename, "_", prefs.RemoveUnderscore);
-
         Simplify.RemoveCurvedBracket(ref rename, prefs);
         Simplify.RemoveSquareBracket(ref rename, prefs);
-        Simplify.RemoveSquareBracket(ref rename, prefs);
+        Simplify.RemoveBlacklistedWords(ref rename, prefs);
         Simplify.RemoveNonASCII(ref rename, prefs);
 
 

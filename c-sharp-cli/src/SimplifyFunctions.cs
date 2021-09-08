@@ -20,10 +20,12 @@ static partial class Simplify {
 
 // Order insensitive operations
 static partial class Simplify {
-    // Replace sequence/character with whitespace
-    public static void RemoveSequence(ref string filename, string sequence, bool isActive) {
-        if(isActive) {
-            filename = filename.Replace(sequence, " ");
+    // Blacklist
+    public static void RemoveBlacklistedWords(ref string filename, Preferences.JsonConfig prefs) {
+        string[] blacklist = prefs.Blacklist.Split(',');
+        for(int i = 0; i < blacklist.Length; i++) {
+            ReduceWhitespace(ref blacklist[i]);
+            filename = filename.Replace(blacklist[i], " ");
         }
     }
 

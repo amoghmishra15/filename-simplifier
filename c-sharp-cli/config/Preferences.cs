@@ -26,11 +26,7 @@ class Preferences {
         public string LibraryPath { get; init; } = "ERR: null libraryPath in JSON";
         public bool GetAllDirectories { get; init; }
         public string Extensions { get; init; } = "ERR: null extension string in JSON";
-
-        // Separators
-        public bool RemoveDot { get; init; }
-        public bool RemoveDash { get; init; }
-        public bool RemoveUnderscore { get; init; }
+        public string Blacklist { get; init; } = "NOBLACKLISTPASSED";
 
         // Metadata containers
         public bool RemoveCurvedBracket { get; init; }
@@ -46,9 +42,7 @@ class Preferences {
         public bool OptimizeArticles { get; init; }
         public bool RemoveNonAscii { get; init; }
         public bool ConvertToLowercase { get; init; }
-
         public bool AppendYear { get; init; }
-
         public bool SmartEpisodeDash { get; init; }
     }
 }
