@@ -50,6 +50,7 @@ static class MainProgram {
 
 
             // Order sensitive operations (last) [NOTE: all are call by reference]
+            Simplify.SmartEpisodeDash(ref rename, prefs);
             Simplify.AppendYearPost(ref rename, prefs);
             Simplify.ReduceWhitespace(ref rename);
             Simplify.ConvertToSentenceCase(ref rename, prefs);

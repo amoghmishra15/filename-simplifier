@@ -3,7 +3,7 @@
 
     "LibraryPath": "C:\\Zeta\\Testing\\A",
     "GetAllDirectories": true,
-    "Extensions": "mkv",
+    "Extensions": "mkv, mp4",
 
     "RemoveDot": true,
     "RemoveDash": true,
@@ -19,7 +19,8 @@
     "SmartCapitalization": true,
     "OptimizeArticles": true,
     "RemoveNonAscii": true,
-    "convertToLowercase": false,
+  "convertToLowercase": false,
+  "SmartEpisodeDash": true,
 
     "AppendYear": true
 }
