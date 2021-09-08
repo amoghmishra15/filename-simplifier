@@ -12,6 +12,7 @@ class Preferences {
 
         // Not found check
         if(!File.Exists(configPath)) {
+            Print.ErrorBlock();
             Console.WriteLine("Config file not found, please re-install app.");
             Environment.Exit(1);
         }

@@ -1,40 +1,100 @@
-﻿namespace simplify;
+﻿using Pastel;
+
+namespace simplify;
 static class Print {
+    // Colors
+    const string red = "#F7525B";
+    const string green = "#87E987";
+    const string blue = "#7FACF7";
+    const string yellow = "FFB900";
+    const string gray = "68768A";
+    const string white = "FFFFFF";
+    const string black = "000000";
+
+    // Reusable block identifiers
+    public static void ErrorBlock() {
+        Console.Write(" ERROR ".Pastel(black).PastelBg(red));
+        Console.Write(" ");
+    }
+    public static void WarningBlock() {
+        Console.Write(" WARNING ".Pastel(black).PastelBg(yellow));
+        Console.Write(" ");
+    }
+    public static void SuccessBlock() {
+        Console.Write(" SUCCESS ".Pastel(black).PastelBg(green));
+        Console.Write(" ");
+    }
+    public static void InfoBlock() {
+        Console.Write(" INFORMATION ".Pastel(black).PastelBg(blue));
+        Console.Write(" ");
+    }
+
+    // Colorize strings
+    public static string ErrorColor(string message) {
+        return $"{message}".Pastel(red);
+    }
+
+    public static string WarningColor(string message) {
+        return $"{message}".Pastel(yellow);
+    }
+
+    public static string SuccessColor(string message) {
+        return $"{message}".Pastel(green);
+    }
+
+    public static string InfoColor(string message) {
+        return $"{message}".Pastel(blue);
+    }
+
+    public static string StealthColor(string message) {
+        return $"{message}".Pastel(gray);
+    }
+
     // Print selected files and get confirmation from user
     public static void Confirmation(IEnumerable<string> files) {
-        Console.WriteLine("Following files will be affected\n");
+        InfoBlock();
+        Console.WriteLine("Following files will be affected");
 
-        foreach(string fileAddress in files) { Console.WriteLine(Path.GetFullPath(fileAddress)); }
+        foreach(string fileAddress in files) {
+            string path = Path.GetFullPath(fileAddress);
+            Console.WriteLine(InfoColor(path));
+        }
 
-        Console.Write("\nContinue? (y/N): ");
-        if(Console.Read() != 'y') { System.Environment.Exit(1); }
+        Console.Write($"\nContinue? ({"y".Pastel(green)}/{"N".Pastel(red)}): ");
+        if(Console.Read() != 'y') { Environment.Exit(1); }
         Console.WriteLine();
     }
 
     // Print 'no change required' message
     public static void NoChangeRequired(Metadata file) {
-        Console.WriteLine($"File '{file.Name}{file.Extension}' in '{file.Directory}' is already in simplified form");
+        InfoBlock();
+        Console.WriteLine($"[{StealthColor(file.Directory)}]");
+        Console.WriteLine($"{InfoColor(file.NameWithExtension)} is already in simplified form\n");
     }
 
     // Print 'rename conflict' message
     public static void RenameConflict(Metadata file, string rename) {
-        Console.WriteLine("\n--- Rename Conflict ---");
-        Console.WriteLine($"Attempting to rename '{file.Name}{file.Extension}' to '{rename}{file.Extension}'");
-        Console.WriteLine($"A file with the same name already exists in '{file.Directory}'");
-        Console.WriteLine("Delete/rename either file manually. No action has been taken.\n");
+        WarningBlock();
+        Console.WriteLine($"[{StealthColor(file.Directory)}]");
+        Console.WriteLine(StealthColor(file.NameWithExtension));
+        Console.WriteLine(WarningColor($"{rename}{file.Extension}"));
+        Console.WriteLine("File with same name already exists. Fix manually.\n");
     }
 
     // Print 'success' message
     public static void Success(Metadata file, string rename) {
-        Console.WriteLine($"Renamed '{file.Name}{file.Extension}' to '{rename}{file.Extension}' in '{file.Directory}'");
+        SuccessBlock();
+        Console.WriteLine($"[{StealthColor(file.Directory)}]");
+        Console.WriteLine(StealthColor(file.NameWithExtension));
+        Console.WriteLine(SuccessColor($"{rename}{file.Extension}\n"));
     }
 
 
     // Print results and stats
     public static void Results(int countRenamed, int countConflict, int countUnchanged) {
-        Console.WriteLine("\n\n--- Completed ---");
-        Console.WriteLine($"Renamed files count: {countRenamed}");
-        Console.WriteLine($"Already simplified files count: {countUnchanged}");
-        Console.WriteLine($"Conflict files count: {countConflict} (skipped; manual change required; view log)");
+        Console.WriteLine("\n SUMMARY ".Pastel(white).PastelBg(gray));
+        Console.WriteLine($"Renamed files: {SuccessColor(countRenamed.ToString())}");
+        Console.WriteLine($"Already simplified : {InfoColor(countUnchanged.ToString())}");
+        Console.WriteLine($"Rename conflicts: {WarningColor(countConflict.ToString())}");
     }
 }
