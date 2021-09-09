@@ -25,7 +25,7 @@ static partial class Simplify {
         string[] blacklist = prefs.Blacklist.Split(',');
         for(int i = 0; i < blacklist.Length; i++) {
             ReduceWhitespace(ref blacklist[i]);
-            filename = filename.Replace(blacklist[i], " ");
+            filename = filename.Replace(blacklist[i], " ", (StringComparison)RegexOptions.IgnoreCase);
         }
     }
 
