@@ -10,7 +10,9 @@ static class MainProgram {
 
         string libraryPath = prefs.LibraryPath;
         if(args.Any()) {
-            libraryPath = args[0]; // if path is provided by argument, overrule config.json path
+            if(args[0].Replace('\\', '/').Contains('/')) {
+                libraryPath = args[0]; // if path is provided by argument, overrule config.json path
+            }
             Console.WriteLine($"\nLibrary path: {Print.InfoText(libraryPath)}");
 
             // Flags
