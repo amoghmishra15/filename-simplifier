@@ -6,7 +6,7 @@ static class MainProgram {
 
         // Process input arguments
         bool makeChangesPermanent = false;
-        bool renameFolders = false;
+        bool includeFolders = false;
 
         string libraryPath = prefs.LibraryPath;
         if(args.Any()) {
@@ -19,12 +19,12 @@ static class MainProgram {
             string cliFlags = string.Join(" ", args).ToLowerInvariant();
 
             if(cliFlags.Contains("--rename")) { makeChangesPermanent = true; }
-            if(cliFlags.Contains("--renamefolders")) { renameFolders = true; }
+            if(cliFlags.Contains("--includefolders")) { includeFolders = true; }
         }
 
         // Update runtime preferences
         prefs.MakeChangesPermanent = makeChangesPermanent;
-        prefs.RenameFolders = renameFolders;
+        prefs.RenameFolders = includeFolders;
 
         // Init counters (unchanged, conflict, renamed)
         var counter = new Counter(0, 0, 0);
