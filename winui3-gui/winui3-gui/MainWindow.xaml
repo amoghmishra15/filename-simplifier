@@ -7,7 +7,373 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
-    </StackPanel>
+
+    <ScrollViewer Background="{StaticResource DarkBackground}">
+
+        <Grid
+            Background="{StaticResource DarkBackground}"
+            Margin="32">
+            <!--Primary Grid-->
+            <Grid.RowDefinitions>
+                <!--Title-->
+                <RowDefinition Height="100"/>
+                <!--Header: Media Library-->
+                <RowDefinition Height="60"/>
+                <!--Cards-->
+                <RowDefinition Height="78"/>
+                <!--  //  -->
+                <!--Header: Settings-->
+                <RowDefinition Height="60"/>
+                <!--Cards-->
+                <RowDefinition Height="126"/>
+                <!--  //  -->
+                <!--Header: Preferences-->
+                <RowDefinition Height="60"/>
+                <!--Cards-->
+                <RowDefinition Height="78"/>
+                <RowDefinition Height="78"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <!-- ROW NUMBER 0   -->
+            <!-- Title card     -->
+            <Grid Grid.Row="0" Grid.Column="0">
+                <!--Secondary Grid-->
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <!--Title-->
+                <TextBlock
+                    Text="Simplify your library ☄"
+                    FontSize="24"
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    VerticalAlignment="Bottom"
+                    />
+
+                <!--Subtitle-->
+                <TextBlock
+                    Text="https://github.com/Az-21/filename-simplifier"
+                    IsTextSelectionEnabled="False"
+                    FontSize="14"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    VerticalAlignment="Top"
+                    />
+            </Grid>
+
+            <!-- ROW NUMBER 1     -->
+            <!-- Section header   -->
+            <StackPanel Grid.Row="1" Grid.Column="0" VerticalAlignment="Bottom" Margin="0 0 0 5">
+                <TextBlock
+                    Text="Media Library"
+                    FontSize="24"
+                    FontWeight="Bold"
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    />
+            </StackPanel>
+
+            <!-- ROW NUMBER 2 -->
+            <!-- File browser -->
+            <Grid Grid.Row="2" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="36" />
+                    <RowDefinition Height="36"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="72"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="124"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Card background-->
+                <Rectangle
+                    Height="72"
+                    RadiusX="8"
+                    RadiusY="8"
+                    Grid.ColumnSpan="999"
+                    Grid.RowSpan="999">
+                    <Rectangle.Fill>
+                        <SolidColorBrush Color="{StaticResource DarkCard}" />
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <!--Icon-->
+                <SymbolIcon
+                    Symbol="SyncFolder"
+                    Grid.RowSpan="999"
+                    Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    />
+
+                <!--Title-->
+                <TextBlock
+                    Text="Select folder"
+                    FontSize="18"
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    VerticalAlignment="Bottom"
+                    />
+
+                <!--Subtitle-->
+                <TextBlock
+                    Text="C:\Users\XYZ\Media"
+                    FontFamily="Cascadia Code"
+                    FontSize="14"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    VerticalAlignment="Top"
+                    />
+
+                <!--Button-->
+                <Button
+                    HorizontalAlignment="Right"
+                    Margin="0 0 24 0"
+                    Grid.RowSpan="999"
+                    Grid.Column="2">
+                    <StackPanel Orientation="Horizontal">
+                        <SymbolIcon
+                            Symbol="Folder"
+                            Margin="5 0"/>
+                        <TextBlock
+                            Text="Browse"
+                            Margin="5 0"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+
+            <!-- ROW NUMBER 3     -->
+            <!-- Section header   -->
+            <StackPanel Grid.Row="3" Grid.Column="0" VerticalAlignment="Bottom" Margin="0 0 0 5">
+                <TextBlock
+                    Text="Settings"
+                    FontSize="24"
+                    FontWeight="Bold"
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    />
+            </StackPanel>
+
+            <!-- ROW NUMBER 4     -->
+            <!-- Blacklist        -->
+            <Grid Grid.Row="4" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="36" />
+                    <RowDefinition Height="36"/>
+                    <RowDefinition Height="48"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="72"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="124"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Card background-->
+                <Rectangle
+                    Height="120"
+                    RadiusX="8"
+                    RadiusY="8"
+                    Grid.ColumnSpan="999"
+                    Grid.RowSpan="999">
+                    <Rectangle.Fill>
+                        <SolidColorBrush Color="{StaticResource DarkCard}" />
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <!--Icon-->
+                <SymbolIcon
+                    Symbol="Setting"
+                    Grid.RowSpan="999"
+                    Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    />
+
+                <!--Title-->
+                <TextBlock
+                    Text="Blacklist"
+                    FontSize="18"
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    VerticalAlignment="Bottom"
+                    />
+
+                <!--Subtitle-->
+                <TextBlock
+                    Text="Remove words and characters from name"
+                    FontSize="14"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    VerticalAlignment="Top"
+                    />
+
+                <!--Button-->
+                <Button
+                    HorizontalAlignment="Right"
+                    Margin="0 0 24 0"
+                    Grid.RowSpan="2"
+                    Grid.Column="2">
+                    <StackPanel Orientation="Horizontal">
+                        <SymbolIcon
+                            Symbol="Refresh"
+                            Margin="5 0"/>
+                        <TextBlock
+                            Text="Reset"
+                            Margin="5 0"/>
+                    </StackPanel>
+                </Button>
+
+                <!--Input box-->
+                <TextBox
+                    Text="., _, -, webrip"
+                    FontFamily="Cascadia Mono"
+                    IsSpellCheckEnabled="False"
+                    Margin="0 0 24 0"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    Grid.Row="2"
+                    Height="32"
+                    VerticalAlignment="Top"
+                    />
+            </Grid>
+
+            <!-- ROW NUMBER 5     -->
+            <!-- Section header   -->
+            <StackPanel Grid.Row="5" Grid.Column="0" VerticalAlignment="Bottom" Margin="0 0 0 5">
+                <TextBlock
+                    Text="Preferences"
+                    FontSize="24"
+                    FontWeight="Bold"
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    />
+            </StackPanel>
+
+            <!-- ROW NUMBER 6     -->
+            <!-- Simplify folders -->
+            <Grid Grid.Row="6" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="36" />
+                    <RowDefinition Height="36"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="72"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="96"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Card background-->
+                <Rectangle
+                    Height="72"
+                    RadiusX="8"
+                    RadiusY="8"
+                    Grid.ColumnSpan="999"
+                    Grid.RowSpan="999">
+                    <Rectangle.Fill>
+                        <SolidColorBrush Color="{StaticResource DarkCard}" />
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <!--Icon-->
+                <SymbolIcon
+                    Symbol="Setting"
+                    Grid.RowSpan="999"
+                    Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    />
+
+                <!--Title-->
+                <TextBlock
+                    Text="Rename folders"
+                    FontSize="18"
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    VerticalAlignment="Bottom"
+                    />
+
+                <!--Subtitle-->
+                <TextBlock
+                    Text="Simplify the names of folders"
+                    FontSize="14"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    VerticalAlignment="Top"
+                    />
+
+                <!--Toggle-->
+                <ToggleSwitch
+                    Grid.RowSpan="999"
+                    Grid.Column="2"
+                    HorizontalAlignment="Left"
+                    />
+            </Grid>
+
+            <!-- ROW NUMBER 7           -->
+            <!-- Include subdirectories -->
+            <Grid Grid.Row="7" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="36" />
+                    <RowDefinition Height="36"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="72"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="96"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Card background-->
+                <Rectangle
+                    Height="72"
+                    RadiusX="8"
+                    RadiusY="8"
+                    Grid.ColumnSpan="999"
+                    Grid.RowSpan="999">
+                    <Rectangle.Fill>
+                        <SolidColorBrush Color="{StaticResource DarkCard}" />
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <!--Icon-->
+                <SymbolIcon
+                    Symbol="Setting"
+                    Grid.RowSpan="999"
+                    Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    />
+
+                <!--Title-->
+                <TextBlock
+                    Text="Include subdirectories"
+                    FontSize="18"
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    VerticalAlignment="Bottom"
+                    />
+
+                <!--Subtitle-->
+                <TextBlock
+                    Text="Scan and rename the contents of subdirectories (children folders)"
+                    FontSize="14"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    VerticalAlignment="Top"
+                    />
+
+                <!--Toggle-->
+                <ToggleSwitch
+                    Grid.RowSpan="999"
+                    Grid.Column="2"
+                    HorizontalAlignment="Left"
+                    />
+            </Grid>
+
+        </Grid>
+    </ScrollViewer>
 </Window>

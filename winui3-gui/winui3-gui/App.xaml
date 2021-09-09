@@ -10,6 +10,8 @@
                 <!-- Other merged dictionaries here -->
             </ResourceDictionary.MergedDictionaries>
             <!-- Other app resources here -->
+            <Color x:Key="DarkBackground">#202020</Color>
+            <Color x:Key="DarkCard">#2B2B2B</Color>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
