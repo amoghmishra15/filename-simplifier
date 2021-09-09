@@ -1,22 +1,22 @@
 {
-    "_": "View readme at https://github.com/Az-21/filename-simplifier for more information",
+  "_": "View readme at https://github.com/Az-21/filename-simplifier for more information",
 
-    "LibraryPath": "C:\\Zeta\\Testing\\A",
-    "GetAllDirectories": true,
-    "Extensions": "mkv, mp4",
-    "Blacklist":  "., -, _, webrip, x256, HEVC",
+  "LibraryPath": "C:\\Zeta\\Testing\\A",
+  "GetAllDirectories": true,
+  "Extensions": "mkv, mp4",
+  "Blacklist": "., -, _, webrip, x256, HEVC, camrip, nogrp, ddp5, x264",
 
-    "RemoveCurvedBracket": true,
-    "RemoveSquareBracket": true,
+  "RemoveCurvedBracket": true,
+  "RemoveSquareBracket": true,
 
-    "IsCliFriendly": false,
-    "CliSeparator": "-",
+  "IsCliFriendly": false,
+  "CliSeparator": "-",
 
-    "SentenceCase": false,
-    "SmartCapitalization": true,
-    "OptimizeArticles": true,
-    "RemoveNonAscii": true,
-    "convertToLowercase": false,
-    "SmartEpisodeDash": true,
-    "AppendYear": true
+  "SentenceCase": false,
+  "SmartCapitalization": true,
+  "OptimizeArticles": true,
+  "RemoveNonAscii": true,
+  "convertToLowercase": false,
+  "SmartEpisodeDash": true,
+  "AppendYear": true
 }
