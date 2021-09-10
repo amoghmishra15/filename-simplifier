@@ -1,7 +1,7 @@
 {
   "_": "View readme at https://github.com/Az-21/filename-simplifier for more information",
 
-  "LibraryPath": "C:\\Zeta\\Testing\\A",
+  "LibraryPath": "D:\\Testing",
   "GetAllDirectories": true,
   "Extensions": "mkv, mp4",
   "Blacklist": "., -, _, webrip, x256, HEVC, camrip, nogrp, ddp5, x264",
@@ -18,5 +18,6 @@
   "RemoveNonAscii": true,
   "convertToLowercase": false,
   "SmartEpisodeDash": true,
+  "RemoveNumbers": false,
   "AppendYear": true
 }
