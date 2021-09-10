@@ -16,6 +16,13 @@ static partial class Simplify {
             }
         }
     }
+
+    // Remove All Numbers
+    public static void RemoveNumbers(ref string filename, JsonConfig prefs) {
+        if(prefs.RemoveNumbers) {
+            filename = Regex.Replace(filename, @"\d", string.Empty);
+        }
+    }
 }
 
 // Order insensitive operations
@@ -110,7 +117,7 @@ static partial class Simplify {
     // Smart Episode Dash Adder
     public static void SmartEpisodeDash(ref string filename, JsonConfig prefs) {
         if(prefs.SmartEpisodeDash) {
-            Match match = Regex.Match(filename, @"(S\d+E\d+)|(E\d+)", RegexOptions.IgnoreCase);
+            Match match = Regex.Match(filename, @"(S\d+E\d+)|([ES]\d+)", RegexOptions.IgnoreCase);
             if(match.Success) {
                 filename = filename.Insert(match.Index, " - ");
             }

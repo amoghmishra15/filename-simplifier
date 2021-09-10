@@ -45,6 +45,7 @@ public class JsonConfig {
     public bool ConvertToLowercase { get; init; }
     public bool AppendYear { get; init; }
     public bool SmartEpisodeDash { get; init; }
+    public bool RemoveNumbers { get; init; }
 
     // Runtime vars
     // WARNING: do NOT add these in 'config.json'

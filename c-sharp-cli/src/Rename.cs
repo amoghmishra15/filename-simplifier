@@ -2,7 +2,9 @@
 static class Rename {
     private static void ApplySimplificationFunctions(ref string rename, JsonConfig prefs) {
         // Order sensitive operations (first) [NOTE: all are call by reference]
+        Simplify.RemoveNumbers(ref rename, prefs);
         Simplify.AppendYearPre(ref rename, prefs);
+
 
         // Order insensitive operations [NOTE: all are call by reference]
         Simplify.RemoveCurvedBracket(ref rename, prefs);
